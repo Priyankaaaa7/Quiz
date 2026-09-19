@@ -1,0 +1,1169 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NPTEL Health Research Quiz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,600&family=Public+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --paper: #edf1f3;
+        --grid: #dce4e8;
+        --ink: #15233b;
+        --muted: #55667b;
+        --card: #fbfcfc;
+        --line: #c4cfd8;
+        --accent: #e8a317;
+        --good: #17754f;
+        --good-bg: #e2f3ea;
+        --bad: #a93445;
+        --bad-bg: #fbe8eb;
+        --serif: "Literata", Georgia, "Times New Roman", serif;
+        --sans:
+          "Public Sans", system-ui, -apple-system, "Segoe UI", Roboto,
+          sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        -webkit-text-size-adjust: 100%;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: var(--sans);
+        font-size: 16px;
+        line-height: 1.5;
+        color: var(--ink);
+        background-color: var(--paper);
+        background-image:
+          linear-gradient(var(--grid) 1px, transparent 1px),
+          linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+        background-size: 28px 28px;
+      }
+
+      .wrap {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 32px 20px 64px;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: var(--serif);
+        font-weight: 600;
+        margin: 0;
+        letter-spacing: -0.01em;
+      }
+
+      /* ---------- Buttons ---------- */
+      button {
+        font: inherit;
+        color: inherit;
+        cursor: pointer;
+      }
+
+      button:focus-visible {
+        outline: 3px solid var(--ink);
+        outline-offset: 3px;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 12px 24px;
+        border: 2px solid var(--ink);
+        border-radius: 8px;
+        background: var(--ink);
+        color: #fff;
+        font-weight: 600;
+        transition:
+          background-color 0.15s,
+          color 0.15s;
+      }
+      .btn:hover {
+        background: #24375a;
+      }
+      .btn.ghost {
+        background: transparent;
+        color: var(--ink);
+      }
+      .btn.ghost:hover {
+        background: rgba(21, 35, 59, 0.08);
+      }
+
+      .link-btn {
+        border: 0;
+        background: none;
+        padding: 4px 0;
+        color: var(--muted);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        font-size: 14px;
+      }
+      .link-btn:hover {
+        color: var(--ink);
+      }
+
+      /* ---------- Ruler (progress) ---------- */
+      .ruler {
+        display: flex;
+        align-items: flex-end;
+        gap: 3px;
+        height: 22px;
+      }
+      .tick {
+        flex: 1;
+        height: 12px;
+        border-radius: 2px;
+        background: var(--card);
+        border: 1px solid var(--line);
+        transition:
+          height 0.2s,
+          background-color 0.2s;
+      }
+      .tick.done {
+        background: var(--ink);
+        border-color: var(--ink);
+      }
+      .tick.current {
+        height: 22px;
+        background: var(--accent);
+        border-color: var(--accent);
+      }
+      .tick.right {
+        background: var(--good);
+        border-color: var(--good);
+        height: 18px;
+      }
+      .tick.wrong {
+        background: var(--bad);
+        border-color: var(--bad);
+        height: 10px;
+      }
+
+      /* ---------- Start screen ---------- */
+      .intro h1 {
+        font-size: clamp(2rem, 6vw, 2.9rem);
+        line-height: 1.12;
+        margin-bottom: 16px;
+      }
+      .intro p {
+        max-width: 56ch;
+        color: var(--muted);
+        margin: 0 0 12px;
+      }
+      .intro .ruler {
+        margin: 28px 0 32px;
+      }
+      .intro ul {
+        margin: 0 0 32px;
+        padding-left: 20px;
+        color: var(--ink);
+        max-width: 56ch;
+      }
+      .intro li {
+        margin-bottom: 6px;
+      }
+
+      /* ---------- Quiz screen ---------- */
+      .quiz-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 10px;
+        font-size: 14px;
+        color: var(--muted);
+      }
+      .quiz-head strong {
+        color: var(--ink);
+        font-weight: 600;
+      }
+
+      .card {
+        margin-top: 24px;
+        padding: 28px;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        box-shadow: 0 1px 0 rgba(21, 35, 59, 0.06);
+      }
+      .card:focus {
+        outline: none;
+      }
+
+      .question {
+        font-size: clamp(1.15rem, 3.2vw, 1.4rem);
+        line-height: 1.4;
+        font-weight: 500;
+        margin-bottom: 22px;
+      }
+
+      .options {
+        display: grid;
+        gap: 10px;
+      }
+
+      .opt {
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        width: 100%;
+        padding: 14px 16px;
+        text-align: left;
+        background: #fff;
+        border: 1.5px solid var(--line);
+        border-radius: 10px;
+        transition:
+          border-color 0.15s,
+          background-color 0.15s;
+      }
+      .opt:hover {
+        border-color: var(--ink);
+      }
+
+      .badge {
+        flex: none;
+        width: 28px;
+        height: 28px;
+        display: grid;
+        place-items: center;
+        border-radius: 6px;
+        border: 1.5px solid var(--line);
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--muted);
+        background: var(--paper);
+      }
+      .opt .txt {
+        flex: 1;
+        padding-top: 2px;
+      }
+      .opt .flag {
+        flex: none;
+        padding-top: 3px;
+        font-size: 13px;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+
+      .options.locked .opt {
+        cursor: default;
+      }
+      .options.locked .opt:hover {
+        border-color: var(--line);
+      }
+
+      .opt.correct {
+        border-color: var(--good);
+        background: var(--good-bg);
+      }
+      .opt.correct:hover {
+        border-color: var(--good) !important;
+      }
+      .opt.correct .badge {
+        background: var(--good);
+        border-color: var(--good);
+        color: #fff;
+      }
+      .opt.correct .flag {
+        color: var(--good);
+      }
+
+      .opt.wrong {
+        border-color: var(--bad);
+        background: var(--bad-bg);
+      }
+      .opt.wrong:hover {
+        border-color: var(--bad) !important;
+      }
+      .opt.wrong .badge {
+        background: var(--bad);
+        border-color: var(--bad);
+        color: #fff;
+      }
+      .opt.wrong .flag {
+        color: var(--bad);
+      }
+
+      .feedback-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        margin-top: 22px;
+        min-height: 48px;
+      }
+      .feedback {
+        margin: 0;
+        font-weight: 600;
+      }
+      .feedback.good {
+        color: var(--good);
+      }
+      .feedback.bad {
+        color: var(--bad);
+      }
+
+      /* ---------- Results ---------- */
+      .result h2 {
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: var(--muted);
+      }
+
+      .score {
+        display: flex;
+        align-items: baseline;
+        gap: 12px;
+        margin: 4px 0 8px;
+        font-family: var(--serif);
+      }
+      .score .big {
+        font-size: clamp(4rem, 16vw, 6rem);
+        font-weight: 600;
+        line-height: 1;
+      }
+      .score .of {
+        font-size: clamp(1.3rem, 5vw, 1.8rem);
+        color: var(--muted);
+      }
+
+      .result .pct {
+        margin: 0 0 6px;
+        font-weight: 600;
+        font-size: 1.1rem;
+      }
+      .result .msg {
+        margin: 0 0 24px;
+        color: var(--muted);
+        max-width: 52ch;
+      }
+      .result .ruler {
+        margin-bottom: 8px;
+      }
+      .legend {
+        font-size: 13px;
+        color: var(--muted);
+        margin: 0 0 28px;
+      }
+      .legend .sw {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 2px;
+        margin: 0 4px 0 0;
+        vertical-align: baseline;
+      }
+      .legend .sw.right {
+        background: var(--good);
+      }
+      .legend .sw.wrong {
+        background: var(--bad);
+        margin-left: 14px;
+      }
+
+      .review {
+        margin-top: 44px;
+      }
+      .review h3 {
+        font-size: 1.3rem;
+        margin-bottom: 16px;
+      }
+      .review-item {
+        padding: 18px 20px;
+        margin-bottom: 12px;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-left: 5px solid var(--bad);
+        border-radius: 8px;
+      }
+      .review-item .rq {
+        font-family: var(--serif);
+        font-weight: 500;
+        margin: 0 0 10px;
+      }
+      .review-item p {
+        margin: 0 0 4px;
+        font-size: 15px;
+      }
+      .review-item .yours {
+        color: var(--bad);
+      }
+      .review-item .right {
+        color: var(--good);
+        font-weight: 600;
+      }
+      .review-item .src {
+        margin-top: 8px;
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .perfect {
+        padding: 18px 20px;
+        background: var(--good-bg);
+        border: 1px solid var(--good);
+        border-radius: 8px;
+        font-weight: 600;
+        color: var(--good);
+      }
+
+      /* ---------- Small screens ---------- */
+      @media (max-width: 520px) {
+        .wrap {
+          padding: 20px 14px 48px;
+        }
+        .card {
+          padding: 20px 16px;
+        }
+        .opt {
+          padding: 12px;
+          gap: 10px;
+        }
+        .opt .flag {
+          display: none;
+        }
+        .feedback-row {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .feedback-row .btn {
+          width: 100%;
+          text-align: center;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <!-- Start -->
+      <section id="screen-start" class="intro">
+        <h1>Health research methods practice quiz</h1>
+        <p>
+          Practice questions from the NPTEL health research methods assignments.
+        </p>
+        <div class="ruler" id="start-ruler" aria-hidden="true"></div>
+        <ul>
+          <li id="start-count"></li>
+          <li>Questions and answer choices are shuffled every time.</li>
+          <li>
+            You see whether each answer is right as you go. Your score appears
+            at the end.
+          </li>
+        </ul>
+        <button class="btn" id="btn-start" type="button">Start quiz</button>
+      </section>
+
+      <!-- Quiz -->
+      <section id="screen-quiz" hidden>
+        <div class="quiz-head">
+          <span
+            >Question <strong id="q-num">1</strong> of
+            <span id="q-total">28</span></span
+          >
+          <button class="link-btn" id="btn-quit" type="button">Restart</button>
+        </div>
+        <div
+          class="ruler"
+          id="quiz-ruler"
+          role="img"
+          aria-label="Progress"
+        ></div>
+
+        <div class="card" id="card" tabindex="-1">
+          <h2 class="question" id="q-text"></h2>
+          <div class="options" id="options"></div>
+          <div class="feedback-row">
+            <p class="feedback" id="feedback" aria-live="polite"></p>
+            <button class="btn" id="btn-next" type="button" hidden>
+              Next question
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Results -->
+      <section id="screen-result" class="result" hidden>
+        <h2>Your score</h2>
+        <div class="score">
+          <span class="big" id="r-score">0</span>
+          <span class="of" id="r-of">out of 28</span>
+        </div>
+        <p class="pct" id="r-pct"></p>
+        <p class="msg" id="r-msg"></p>
+        <div
+          class="ruler"
+          id="result-ruler"
+          role="img"
+          aria-label="Results by question"
+        ></div>
+        <p class="legend">
+          <span class="sw right"></span>Correct<span class="sw wrong"></span
+          >Incorrect
+        </p>
+        <button class="btn" id="btn-restart" type="button">Restart quiz</button>
+
+        <div class="review" id="review"></div>
+      </section>
+    </main>
+
+    <script>
+      (function () {
+        "use strict";
+
+        /* ==========================================================================
+     HOW TO ADD YOUR OWN QUESTIONS
+     1. Add a name for the assignment in SOURCES below (the number is its id).
+     2. Scroll to the end of BANK, where there is a sample question.
+     3. Delete the line that holds only the opening comment marker and the
+        line that holds only the closing one, then edit the sample and copy
+        it for as many questions as you need.
+        s = assignment id, q = question, o = options, a = correct option.
+     4. Every question must end with a comma, except the very last one.
+     Save the file and refresh the browser.
+     ========================================================================== */
+
+        /* Number of questions per attempt. The bank has more questions than this,
+     so each attempt uses a random selection. Set it to 999 to use every
+     question every time. */
+        var QUIZ_LENGTH = 28;
+
+        /* Assignment names, shown next to the questions you miss. Rename freely. */
+        var SOURCES = {
+          1: "Assignment 1: Introduction to health research",
+          2: "Assignment 2: Formulating research question",
+          3: "Assignment 3: Literature review",
+          4: "Assignment 4",
+          5: "Assignment 5",
+          6: "Assignment 6",
+          7: "Assignment 7",
+          8: "Assignment 8",
+        };
+
+        /* s = assignment, q = question, o = options, a = index of the correct option */
+        var BANK = [
+          /* ---------- Assignment 1 ---------- */
+          {
+            s: 1,
+            q: "A good choice of study subject is important because it serves the vital purpose of ensuring that the findings of the study accurately represent the population of interest",
+            o: ["True", "False"],
+            a: 0,
+          },
+          {
+            s: 1,
+            q: "The policy makers want to know whether introduction of pentavalent vaccine [a combination of five vaccines in one: diphtheria, tetanus, whooping cough, hepatitis B and Haemophilus influenza type b (the bacteria that causes meningitis, pneumonia and otitis)] in the national immunization programme is resulting in reduction in number of Hemophilus influenza cases. Which of the following studies will they have to conduct to find an answer?",
+            o: [
+              "Case-control study",
+              "Field randomized trial",
+              "Ecological study",
+              "Case-series",
+            ],
+            a: 1,
+          },
+          {
+            s: 1,
+            q: "What is true about confounders?",
+            o: [
+              "They affect both study variable as well as outcome",
+              "Their effect can be minimized by proper study design and through stratified analysis",
+              "Both \u2018a\u2019 & \u2018b\u2019",
+              "None of the above",
+            ],
+            a: 2,
+          },
+          {
+            s: 1,
+            q: "Which of the following is not a type of study design?",
+            o: [
+              "Qualitative study",
+              "Observational study",
+              "Retrospective study",
+              "Pilot study",
+            ],
+            a: 3,
+          },
+          {
+            s: 1,
+            q: "Scope of health research can include",
+            o: [
+              "Human host",
+              "Surrounding environment and the society",
+              "Health care infrastructure and delivery",
+              "All of the above",
+            ],
+            a: 3,
+          },
+          {
+            s: 1,
+            q: "Which of the following statements is not true in case of pilot study?",
+            o: [
+              "They are conducted for developing and testing adequacy of research instruments",
+              "They establish whether the sampling frame and technique are effective",
+              "Ethics committee approves the main study only after successful completion of the pilot study",
+              "They are small scale studies",
+            ],
+            a: 2,
+          },
+          {
+            s: 1,
+            q: "Which of the following studies does not involve human participants?",
+            o: [
+              "Clinical trials",
+              "Cohort studies",
+              "Secondary data analysis of data of national programs",
+              "None of the above",
+            ],
+            a: 2,
+          },
+          {
+            s: 1,
+            q: "Which of the following areas can be included in health research?",
+            o: [
+              "Improving the health of the population",
+              "Predicting occurrence of a disease in an individual",
+              "Prevention of various diseases",
+              "To explore various societal, community based and programmatic interventions for disease prevention and control",
+              "All of the above",
+            ],
+            a: 4,
+          },
+          {
+            s: 1,
+            q: "Which of the following are examined as part of regulatory review?",
+            o: [
+              "Information regarding transfer of funds and utilization of funds",
+              "Shipment of samples and transfer of data outside the country",
+              "Sharing and protection of intellectual property",
+              "All of the above",
+            ],
+            a: 3,
+          },
+          {
+            s: 1,
+            q: "From where can investigators obtain information on \u2018effect modifiers\u2019 while exploring cause and effect relationship in a research study?",
+            o: [
+              "By deductive thinking",
+              "By thorough review of literature",
+              "By intelligent guessing",
+              "By Discussing with experienced researchers",
+            ],
+            a: 1,
+          },
+
+          /* ---------- Assignment 2 ---------- */
+          {
+            s: 2,
+            q: "A clear research question facilitates the following",
+            o: [
+              "Choose the most optimal design",
+              "Identify who should be included",
+              "Decide on outcomes to be measured",
+              "All of the above",
+            ],
+            a: 3,
+          },
+          {
+            s: 2,
+            q: "Which of the following verbs is used in the statement of objectives of an analytical research study?",
+            o: ["Estimate", "Determine", "Study", "Describe"],
+            a: 1,
+          },
+          {
+            s: 2,
+            q: "The process of refining the \u201cideas\u201d into research questions begins with general uncertainty about a health issue and narrows down to a specific, concrete researchable issue",
+            o: ["True", "False"],
+            a: 0,
+          },
+          {
+            s: 2,
+            q: "Characteristics of a good hypothesis include",
+            o: ["Simple", "Specific", "Stated in advance", "All of the above"],
+            a: 3,
+          },
+          {
+            s: 2,
+            q: "Source(s) of research question is/are",
+            o: [
+              "Published literature",
+              "Being alert to new ideas",
+              "Careful observation and teaching",
+              "All of the above",
+            ],
+            a: 3,
+          },
+          {
+            s: 2,
+            q: "Will you frame research hypothesis, if research question contains the term \u2018compared with\u2019?",
+            o: ["Yes", "No"],
+            a: 0,
+          },
+          {
+            s: 2,
+            q: "Primary objective of a research study is to estimate the prevalence of a health problem in a community in 2019. Identify the type of research question this study is addressing",
+            o: [
+              "Analytical research question",
+              "Descriptive research question",
+              "Both of the above",
+              "None of the above",
+            ],
+            a: 1,
+          },
+          {
+            s: 2,
+            q: "Feasibility of a good research question is based on",
+            o: [
+              "The availability of adequate number of study participants",
+              "Technical expertise of the research team",
+              "Resources available",
+              "All of the above",
+            ],
+            a: 3,
+          },
+          {
+            s: 2,
+            q: "Which of the following is stated mainly for statistical purpose?",
+            o: [
+              "Research question",
+              "Objectives",
+              "Research hypothesis",
+              "All of the above",
+            ],
+            a: 2,
+          },
+          {
+            s: 2,
+            q: "Which of the following is an element of life cycle of research?",
+            o: [
+              "Identify data needs and spell out the research question",
+              "Formulate the objective and design the study",
+              "Draw conclusion and give recommendation to stakeholders",
+              "All of the above",
+            ],
+            a: 3,
+          },
+
+          /* ---------- Assignment 3 ---------- */
+          {
+            s: 3,
+            q: "The process of identifying, within a large document collection, a subset of documents whose content is most relevant to user\u2019s need is called as",
+            o: [
+              "Information retrieval",
+              "Information management",
+              "Systematic Review",
+              "Meta-analysis",
+            ],
+            a: 0,
+          },
+          {
+            s: 3,
+            q: "Appropriate places to do a literature search",
+            o: [
+              "Pubmed/Google Scholar/Scopus",
+              "Library",
+              "HON Certified Sites",
+              "All of the above",
+            ],
+            a: 3,
+          },
+          {
+            s: 3,
+            q: "The query system in the information retrieval process of literature review is",
+            o: [
+              "User defined",
+              "Provider defined",
+              "Conditional",
+              "Not structured",
+            ],
+            a: 0,
+          },
+          {
+            s: 3,
+            q: "The ability to apply principles of analysis to identify those studies which are unbiased and valid is called as",
+            o: [
+              "Critical appraisal",
+              "Information seeking",
+              "Information management",
+              "Systematic Review",
+            ],
+            a: 0,
+          },
+          {
+            s: 3,
+            q: "A collection of articles, abstracts, scientific proceedings, books, citations etc. that is organized for easy access during literature review is called",
+            o: [
+              "Database",
+              "Critical appraisal",
+              "Hard disk",
+              "None of the above",
+            ],
+            a: 0,
+          },
+          {
+            s: 3,
+            q: "Which of the following about PUBMED is not true",
+            o: [
+              "PubMed comprises more than 25 million citations for biomedical literature from MEDLINE, life science journals, and online books",
+              "Citations may include links to full-text content from PubMed Central and publisher web sites",
+              "PubMed is a free resource that is developed and maintained by the National Center for Biotechnology Information (NCBI), at the U.S. National Library of Medicine (NLM), located at the National Institutes of Health (NIH)",
+              "PUBMED is a paid service provider for doing literature search",
+            ],
+            a: 3,
+          },
+          {
+            s: 3,
+            q: "Critical appraisal is done in an organized and systematic manner",
+            o: ["True", "False"],
+            a: 0,
+          },
+          {
+            s: 3,
+            q: "The process of scanning the literature efficiently using manual or computerized methods to identify a set of potentially useful articles and books is called as",
+            o: [
+              "Information seeking",
+              "Critical appraisal",
+              "Database management",
+              "Information retrieval",
+            ],
+            a: 0,
+          },
+          {
+            s: 3,
+            q: "What is the order of doing a literature search systematically?",
+            o: [
+              "Organise the information, identify the lacunae, develop the research question and synthesis the results",
+              "Organise information, Synthesis the results, identify the lacunae and develop the research question",
+              "Identify the lacunae, develop the research question, synthesis the results, organise the information",
+              "Develop the research question, synthesis the results, organise the information and identify the lacunae",
+            ],
+            a: 1,
+          },
+          {
+            s: 3,
+            q: "In the National Library of Medicine (NLM), MeSH means",
+            o: [
+              "Medical Services Heading",
+              "Medical Subject Heading",
+              "Medical Subject Helpline",
+              "Medical Services Helpline",
+            ],
+            a: 1,
+          },
+
+          /* ---------- Assignment 4 (add your questions below) ---------- */
+
+          /* a = position of the correct option, counting from 0:
+       first = 0, second = 1, third = 2, fourth = 3, fifth = 4 */
+
+          /*
+    { s: 4, q: "Your question text goes here?",
+      o: ["Option one", "Option two", "Option three", "All of the above"], a: 3 },
+
+    { s: 4, q: "A True/False question",
+      o: ["True", "False"], a: 0 }
+    */
+        ];
+
+        /* Options like "All of the above" or "Both a & b" only make sense in their
+     original position, so questions containing them keep their option order. */
+        var PINNED =
+          /^(all of the above|none of the above|both\b.*|true|false|yes|no)$/i;
+
+        var LETTERS = ["A", "B", "C", "D", "E"];
+
+        /* ---------- helpers ---------- */
+        function $(id) {
+          return document.getElementById(id);
+        }
+
+        function shuffle(list) {
+          var a = list.slice();
+          for (var i = a.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var t = a[i];
+            a[i] = a[j];
+            a[j] = t;
+          }
+          return a;
+        }
+
+        function prepare(item) {
+          var opts = item.o.map(function (text, i) {
+            return { text: text, right: i === item.a };
+          });
+          var pinned = item.o.some(function (t) {
+            return PINNED.test(t.trim());
+          });
+          return {
+            q: item.q,
+            src: item.s,
+            opts: pinned ? opts : shuffle(opts),
+          };
+        }
+
+        function buildRuler(el, n) {
+          el.innerHTML = "";
+          for (var i = 0; i < n; i++) {
+            var s = document.createElement("span");
+            s.className = "tick";
+            el.appendChild(s);
+          }
+        }
+
+        function show(name) {
+          ["start", "quiz", "result"].forEach(function (n) {
+            $("screen-" + n).hidden = n !== name;
+          });
+          window.scrollTo(0, 0);
+        }
+
+        /* ---------- state ---------- */
+        var state = { qs: [], i: 0, results: [], answered: false };
+
+        /* ---------- quiz flow ---------- */
+        function startQuiz() {
+          var n = Math.min(QUIZ_LENGTH, BANK.length);
+          state.qs = shuffle(BANK).slice(0, n).map(prepare);
+          state.i = 0;
+          state.results = [];
+          state.answered = false;
+          buildRuler($("quiz-ruler"), n);
+          $("q-total").textContent = n;
+          show("quiz");
+          renderQuestion();
+        }
+
+        function renderQuestion() {
+          var q = state.qs[state.i];
+          state.answered = false;
+
+          $("q-num").textContent = state.i + 1;
+          $("q-text").textContent = q.q;
+          $("feedback").textContent = "";
+          $("feedback").className = "feedback";
+          $("btn-next").hidden = true;
+
+          var ticks = $("quiz-ruler").children;
+          for (var t = 0; t < ticks.length; t++) {
+            ticks[t].className =
+              "tick" +
+              (t < state.i ? " done" : t === state.i ? " current" : "");
+          }
+
+          var box = $("options");
+          box.className = "options";
+          box.innerHTML = "";
+          q.opts.forEach(function (o, idx) {
+            var b = document.createElement("button");
+            b.type = "button";
+            b.className = "opt";
+            b.setAttribute("data-idx", idx);
+
+            var badge = document.createElement("span");
+            badge.className = "badge";
+            badge.textContent = LETTERS[idx];
+
+            var txt = document.createElement("span");
+            txt.className = "txt";
+            txt.textContent = o.text;
+
+            var flag = document.createElement("span");
+            flag.className = "flag";
+
+            b.appendChild(badge);
+            b.appendChild(txt);
+            b.appendChild(flag);
+            b.addEventListener("click", function () {
+              pick(idx);
+            });
+            box.appendChild(b);
+          });
+
+          $("card").focus({ preventScroll: true });
+        }
+
+        function pick(idx) {
+          if (state.answered) return;
+          state.answered = true;
+
+          var q = state.qs[state.i];
+          var chosen = q.opts[idx];
+          var correctIdx = q.opts.findIndex(function (o) {
+            return o.right;
+          });
+
+          state.results[state.i] = {
+            q: q.q,
+            src: q.src,
+            ok: chosen.right,
+            yours: chosen.text,
+            answer: q.opts[correctIdx].text,
+          };
+
+          var box = $("options");
+          box.className = "options locked";
+          var btns = box.children;
+          btns[correctIdx].classList.add("correct");
+          btns[correctIdx].querySelector(".flag").textContent =
+            "Correct answer";
+          if (!chosen.right) {
+            btns[idx].classList.add("wrong");
+            btns[idx].querySelector(".flag").textContent = "Your answer";
+          }
+
+          var fb = $("feedback");
+          if (chosen.right) {
+            fb.textContent = "Correct.";
+            fb.className = "feedback good";
+          } else {
+            fb.textContent = "Not quite. The correct answer is highlighted.";
+            fb.className = "feedback bad";
+          }
+
+          var last = state.i === state.qs.length - 1;
+          var next = $("btn-next");
+          next.textContent = last ? "See my score" : "Next question";
+          next.hidden = false;
+          next.focus();
+        }
+
+        function next() {
+          if (state.i < state.qs.length - 1) {
+            state.i++;
+            renderQuestion();
+          } else {
+            finish();
+          }
+        }
+
+        /* ---------- results ---------- */
+        function finish() {
+          var total = state.qs.length;
+          var score = state.results.filter(function (r) {
+            return r.ok;
+          }).length;
+          var pct = Math.round((score / total) * 100);
+
+          $("r-score").textContent = score;
+          $("r-of").textContent = "out of " + total;
+          $("r-pct").textContent = pct + "%";
+
+          var msg;
+          if (pct >= 90) msg = "Excellent. You know this material well.";
+          else if (pct >= 75)
+            msg =
+              "Solid. Check the questions you missed below, then try again.";
+          else if (pct >= 50)
+            msg =
+              "Getting there. Go through the questions you missed below, then restart for a fresh shuffle.";
+          else
+            msg =
+              "Start with the questions below, then restart for a fresh shuffle.";
+          $("r-msg").textContent = msg;
+
+          var ruler = $("result-ruler");
+          buildRuler(ruler, total);
+          for (var i = 0; i < total; i++) {
+            ruler.children[i].className =
+              "tick " + (state.results[i].ok ? "right" : "wrong");
+          }
+
+          var review = $("review");
+          review.innerHTML = "";
+          var missed = state.results.filter(function (r) {
+            return !r.ok;
+          });
+
+          if (missed.length === 0) {
+            var p = document.createElement("p");
+            p.className = "perfect";
+            p.textContent = "No missed questions. Full marks.";
+            review.appendChild(p);
+          } else {
+            var h = document.createElement("h3");
+            h.textContent = "Questions to revisit (" + missed.length + ")";
+            review.appendChild(h);
+
+            missed.forEach(function (r) {
+              var item = document.createElement("div");
+              item.className = "review-item";
+
+              var rq = document.createElement("p");
+              rq.className = "rq";
+              rq.textContent = r.q;
+
+              var y = document.createElement("p");
+              y.className = "yours";
+              y.textContent = "Your answer: " + r.yours;
+
+              var c = document.createElement("p");
+              c.className = "right";
+              c.textContent = "Correct answer: " + r.answer;
+
+              var s = document.createElement("p");
+              s.className = "src";
+              s.textContent = SOURCES[r.src];
+
+              item.appendChild(rq);
+              item.appendChild(y);
+              item.appendChild(c);
+              item.appendChild(s);
+              review.appendChild(item);
+            });
+          }
+
+          show("result");
+        }
+
+        /* ---------- wiring ---------- */
+        var total = Math.min(QUIZ_LENGTH, BANK.length);
+        buildRuler($("start-ruler"), total);
+        $("start-count").textContent =
+          total +
+          " questions per attempt, picked at random from " +
+          BANK.length +
+          ".";
+
+        $("btn-start").addEventListener("click", startQuiz);
+        $("btn-restart").addEventListener("click", startQuiz);
+        $("btn-next").addEventListener("click", next);
+        $("btn-quit").addEventListener("click", function () {
+          if (
+            window.confirm(
+              "Restart the quiz? Your progress so far will be lost.",
+            )
+          )
+            startQuiz();
+        });
+
+        /* Keyboard: press 1-5 or A-E to answer. Enter on the focused Next button advances. */
+        document.addEventListener("keydown", function (e) {
+          if (e.ctrlKey || e.metaKey || e.altKey) return;
+          if ($("screen-quiz").hidden || state.answered) return;
+          var k = e.key.toUpperCase();
+          var idx = LETTERS.indexOf(k);
+          if (idx === -1 && /^[1-5]$/.test(k)) idx = parseInt(k, 10) - 1;
+          if (idx > -1 && idx < state.qs[state.i].opts.length) pick(idx);
+        });
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,3058 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>NPTEL Health Research — 230 Question Quiz</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Literata:wght@500;600;700&family=Public+Sans:wght@400;500;600;700;800&display=swap");
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Public Sans", sans-serif;
+        color: #24201d;
+        background: #f7f1e7;
+        background-image:
+          linear-gradient(rgba(70, 55, 40, 0.055) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(70, 55, 40, 0.055) 1px, transparent 1px);
+        background-size: 24px 24px;
+      }
+      .wrap {
+        max-width: 1000px;
+        margin: auto;
+        padding: 38px 20px 60px;
+      }
+      .intro,
+      .card,
+      .result {
+        background: #fffaf2;
+        border: 2px solid #29231f;
+        box-shadow: 8px 8px 0 #29231f;
+      }
+      .intro,
+      .result {
+        padding: 38px;
+      }
+      h1,
+      h2 {
+        font-family: "Literata", serif;
+      }
+      h1 {
+        font-size: clamp(36px, 6vw, 62px);
+        line-height: 1.05;
+        margin: 0 0 15px;
+      }
+      .kicker {
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+      }
+      .intro p {
+        font-size: 17px;
+        line-height: 1.6;
+        color: #625850;
+      }
+      .ruler {
+        height: 9px;
+        border: 1px solid #29231f;
+        background: repeating-linear-gradient(
+          90deg,
+          #29231f 0 1px,
+          transparent 1px 20px
+        );
+        margin: 24px 0;
+        opacity: 0.65;
+      }
+      .btn {
+        border: 2px solid #29231f;
+        background: #29231f;
+        color: #fffaf2;
+        padding: 13px 20px;
+        font: 700 15px "Public Sans";
+        cursor: pointer;
+      }
+      .btn:hover {
+        transform: translate(-2px, -2px);
+        box-shadow: 4px 4px 0 #8b7969;
+      }
+      .link-btn {
+        border: 0;
+        background: none;
+        text-decoration: underline;
+        cursor: pointer;
+        font-weight: 700;
+      }
+      .hidden {
+        display: none !important;
+      }
+      .quiz-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 14px;
+      }
+      .card {
+        padding: 30px;
+        margin-top: 18px;
+      }
+      .question {
+        font-size: clamp(21px, 3vw, 29px);
+        line-height: 1.45;
+        margin: 0 0 25px;
+      }
+      .options {
+        display: grid;
+        gap: 12px;
+      }
+      .opt {
+        width: 100%;
+        text-align: left;
+        border: 2px solid #392f29;
+        background: #fffdf8;
+        padding: 15px 16px;
+        cursor: pointer;
+        font: 500 16px/1.45 "Public Sans";
+        display: flex;
+        gap: 13px;
+        align-items: flex-start;
+      }
+      .opt:hover:not(:disabled) {
+        background: #f2e7d7;
+        transform: translateX(2px);
+      }
+      .opt:disabled {
+        cursor: default;
+      }
+      .letter {
+        font-weight: 800;
+        min-width: 24px;
+      }
+      .opt.correct {
+        background: #e4f0e2;
+        border-color: #315b35;
+      }
+      .opt.wrong {
+        background: #f4e0dd;
+        border-color: #793c35;
+      }
+      .feedback-row {
+        margin-top: 20px;
+        display: flex;
+        gap: 15px;
+        align-items: center;
+      }
+      .feedback {
+        margin: 0;
+        flex: 1;
+        color: #4d453e;
+        line-height: 1.5;
+      }
+      .score {
+        display: flex;
+        align-items: baseline;
+        gap: 12px;
+      }
+      .big {
+        font: 700 68px "Literata";
+      }
+      .review {
+        margin-top: 30px;
+        display: grid;
+        gap: 15px;
+      }
+      .review-item {
+        border-top: 1px solid #bdb1a5;
+        padding-top: 15px;
+      }
+      .review-q {
+        font-weight: 700;
+        line-height: 1.5;
+      }
+      .review-a {
+        font-size: 14px;
+        color: #5d554e;
+        margin-top: 5px;
+      }
+      @media (max-width: 650px) {
+        .wrap {
+          padding: 22px 14px 45px;
+        }
+        .intro,
+        .card,
+        .result {
+          padding: 24px;
+          box-shadow: 5px 5px 0 #29231f;
+        }
+        .feedback-row {
+          flex-direction: column;
+          align-items: stretch;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <section id="start" class="intro">
+        <div class="kicker">NPTEL • Health Research Fundamentals</div>
+        <h1>Complete 230-Question Quiz</h1>
+        <p>
+          Weeks 1–8 • Assignments 1–23. One full-length quiz using all 230
+          source-derived questions.
+        </p>
+        <div class="ruler"></div>
+        <ul>
+          <li><strong>230 questions</strong> total</li>
+          <li>Questions and options shuffle each attempt</li>
+          <li>Instant feedback after every answer</li>
+          <li>Final score + missed-question review</li>
+          <li>Keyboard: A–E / 1–5</li>
+        </ul>
+        <button class="btn" id="startBtn">Start quiz</button>
+      </section>
+      <section id="quiz" class="hidden">
+        <div class="quiz-head">
+          <span
+            >Question <strong id="num">1</strong> of <strong>230</strong></span
+          ><button class="link-btn" id="restartTop">Restart</button>
+        </div>
+        <div class="ruler"></div>
+        <div class="card" id="card" tabindex="-1">
+          <h2 class="question" id="question"></h2>
+          <div class="options" id="options"></div>
+          <div class="feedback-row">
+            <p class="feedback" id="feedback"></p>
+            <button class="btn hidden" id="nextBtn">Next question</button>
+          </div>
+        </div>
+      </section>
+      <section id="result" class="result hidden">
+        <div class="kicker">Finished</div>
+        <h2>Your score</h2>
+        <div class="score">
+          <span class="big" id="score">0</span><span>out of 230</span>
+        </div>
+        <p id="pct"></p>
+        <p id="msg"></p>
+        <div class="ruler"></div>
+        <button class="btn" id="restartBtn">Restart quiz</button>
+        <div class="review" id="review"></div>
+      </section>
+    </main>
+    <script>
+      const BANK = [
+        {
+          id: 1,
+          week: 1,
+          assignment: 1,
+          q: "A good choice of study subject is important because it serves the vital purpose of ensuring that the findings of the study accurately represent the population of interest.",
+          o: ["True", "False"],
+          a: 0,
+        },
+        {
+          id: 2,
+          week: 1,
+          assignment: 1,
+          q: "The policy makers want to know whether introduction of pentavalent vaccine in the national immunization programme is resulting in reduction in number of Hemophilus influenza cases. Which of the following studies will they have to conduct?",
+          o: [
+            "Case-control study",
+            "Field randomized trial",
+            "Ecological study",
+            "Case-series",
+          ],
+          a: 1,
+        },
+        {
+          id: 3,
+          week: 1,
+          assignment: 1,
+          q: "What is true about confounders?",
+          o: [
+            "They affect both study variable as well as outcome",
+            "Their effect can be minimized by proper study design and through stratified analysis",
+            "Both ‘a’ & ‘b’",
+            "None of the above",
+          ],
+          a: 2,
+        },
+        {
+          id: 4,
+          week: 1,
+          assignment: 1,
+          q: "Which of the following is not a type of study design?",
+          o: [
+            "Qualitative study",
+            "Observational study",
+            "Retrospective study",
+            "Pilot study",
+          ],
+          a: 3,
+        },
+        {
+          id: 5,
+          week: 1,
+          assignment: 1,
+          q: "Scope of health research can include",
+          o: [
+            "Human host",
+            "Surrounding environment and the society",
+            "Health care infrastructure and delivery",
+            "All of the above",
+          ],
+          a: 3,
+        },
+        {
+          id: 6,
+          week: 1,
+          assignment: 1,
+          q: "Which of the following statements is not true in case of pilot study?",
+          o: [
+            "They are conducted for developing and testing adequacy of research instruments",
+            "They establish whether the sampling frame and technique are effective",
+            "Ethics committee approves the main study only after successful completion of the pilot study",
+            "They are small scale studies",
+          ],
+          a: 2,
+        },
+        {
+          id: 7,
+          week: 1,
+          assignment: 1,
+          q: "Which of the following studies does not involve human participants?",
+          o: [
+            "Clinical trials",
+            "Cohort studies",
+            "Secondary data analysis of data of national programs",
+            "None of the above",
+          ],
+          a: 2,
+        },
+        {
+          id: 8,
+          week: 1,
+          assignment: 1,
+          q: "Which of the following areas can be included in health research?",
+          o: [
+            "Improving the health of the population",
+            "Predicting occurrence of a disease in an individual",
+            "Prevention of various diseases",
+            "To explore various societal, community based and programmatic interventions for disease prevention and control",
+            "All of the above",
+          ],
+          a: 4,
+        },
+        {
+          id: 9,
+          week: 1,
+          assignment: 1,
+          q: "Which of the following are examined as part of regulatory review?",
+          o: [
+            "Information regarding transfer of funds and utilization of funds",
+            "Shipment of samples and transfer of data outside the country",
+            "Sharing and protection of intellectual property",
+            "All of the above",
+          ],
+          a: 3,
+        },
+        {
+          id: 10,
+          week: 1,
+          assignment: 1,
+          q: "From where can investigators obtain information on ‘effect modifiers’ while exploring cause and effect relationship in a research study?",
+          o: [
+            "By deductive thinking",
+            "By thorough review of literature",
+            "By intelligent guessing",
+            "By discussing with experienced researchers",
+          ],
+          a: 1,
+        },
+        {
+          id: 11,
+          week: 1,
+          assignment: 2,
+          q: "A clear research question facilitates the following",
+          o: [
+            "Choose the most optimal design",
+            "Identify who should be included",
+            "Decide on outcomes to be measured",
+            "All of the above",
+          ],
+          a: 3,
+        },
+        {
+          id: 12,
+          week: 1,
+          assignment: 2,
+          q: "Which of the following verbs is used in the statement of objectives of an analytical research study?",
+          o: ["Estimate", "Determine", "Study", "Describe"],
+          a: 1,
+        },
+        {
+          id: 13,
+          week: 1,
+          assignment: 2,
+          q: "The process of refining the 'ideas' into research questions begins with general uncertainty about a health issue and narrows down to a specific, concrete researchable issue.",
+          o: ["True", "False"],
+          a: 0,
+        },
+        {
+          id: 14,
+          week: 1,
+          assignment: 2,
+          q: "Characteristics of a good hypothesis include",
+          o: ["Simple", "Specific", "Stated in advance", "All of the above"],
+          a: 3,
+        },
+        {
+          id: 15,
+          week: 1,
+          assignment: 2,
+          q: "Source(s) of research question is/are",
+          o: [
+            "Published literature",
+            "Being alert to new ideas",
+            "Careful observation and teaching",
+            "All of the above",
+          ],
+          a: 3,
+        },
+        {
+          id: 16,
+          week: 1,
+          assignment: 2,
+          q: "Will you frame research hypothesis, if research question contains the term ‘compared with’?",
+          o: ["Yes", "No"],
+          a: 0,
+        },
+        {
+          id: 17,
+          week: 1,
+          assignment: 2,
+          q: "Primary objective of a research study is to estimate the prevalence of a health problem in a community in 2019. Identify the type of research question this study is addressing",
+          o: [
+            "Analytical research question",
+            "Descriptive research question",
+            "Both of the above",
+            "None of the above",
+          ],
+          a: 1,
+        },
+        {
+          id: 18,
+          week: 1,
+          assignment: 2,
+          q: "Feasibility of a good research question is based on",
+          o: [
+            "The availability of adequate number of study participants",
+            "Technical expertise of the research team",
+            "Resources available",
+            "All of the above",
+          ],
+          a: 3,
+        },
+        {
+          id: 19,
+          week: 1,
+          assignment: 2,
+          q: "Which of the following is stated mainly for statistical purpose?",
+          o: [
+            "Research question",
+            "Objectives",
+            "Research hypothesis",
+            "All of the above",
+          ],
+          a: 2,
+        },
+        {
+          id: 20,
+          week: 1,
+          assignment: 2,
+          q: "Which of the following is an element of life cycle of research?",
+          o: [
+            "Identify data needs and spell out the research question",
+            "Formulate the objective and design the study",
+            "Draw conclusion and give recommendation to stakeholders",
+            "All of the above",
+          ],
+          a: 3,
+        },
+        {
+          id: 21,
+          week: 1,
+          assignment: 3,
+          q: "The process of identifying, within a large document collection, a subset of documents whose content is most relevant to user’s need is called as",
+          o: [
+            "Information retrieval",
+            "Information management",
+            "Systematic Review",
+            "Meta-analysis",
+          ],
+          a: 0,
+        },
+        {
+          id: 22,
+          week: 1,
+          assignment: 3,
+          q: "Appropriate places to do a literature search",
+          o: [
+            "Pubmed/Google Scholar/Scopus",
+            "Library",
+            "HON Certified Sites",
+            "All of the above",
+          ],
+          a: 3,
+        },
+        {
+          id: 23,
+          week: 1,
+          assignment: 3,
+          q: "The query system in the information retrieval process of literature review is",
+          o: [
+            "User defined",
+            "Provider defined",
+            "Conditional",
+            "Not structured",
+          ],
+          a: 0,
+        },
+        {
+          id: 24,
+          week: 1,
+          assignment: 3,
+          q: "The ability to apply principles of analysis to identify those studies which are unbiased and valid is called as",
+          o: [
+            "Critical appraisal",
+            "Information seeking",
+            "Information management",
+            "Systematic Review",
+          ],
+          a: 0,
+        },
+        {
+          id: 25,
+          week: 1,
+          assignment: 3,
+          q: "A collection of articles, abstracts, scientific proceedings, books, citations etc. that is organized for easy access during literature review is called",
+          o: [
+            "Database",
+            "Critical appraisal",
+            "Hard disk",
+            "None of the above",
+          ],
+          a: 0,
+        },
+        {
+          id: 26,
+          week: 1,
+          assignment: 3,
+          q: "Which of the following about PUBMED is not true",
+          o: [
+            "PubMed comprises more than 25 million citations for biomedical literature from MEDLINE, life science journals, and online books",
+            "Citations may include links to full-text content from PubMed Central and publisher web sites",
+            "PubMed is a free resource that is developed and maintained by the National Center for Biotechnology Information (NCBI), at the U.S. National Library of Medicine (NLM), located at the National Institutes of Health (NIH)",
+            "PUBMED is a paid service provider for doing literature search",
+          ],
+          a: 3,
+        },
+        {
+          id: 27,
+          week: 1,
+          assignment: 3,
+          q: "Critical appraisal is done in an organized and systematic manner",
+          o: ["True", "False"],
+          a: 0,
+        },
+        {
+          id: 28,
+          week: 1,
+          assignment: 3,
+          q: "The process of scanning the literature efficiently using manual or computerized methods to identify a set of potentially useful articles and books is called as",
+          o: [
+            "Information seeking",
+            "Critical appraisal",
+            "Database management",
+            "Information retrieval",
+          ],
+          a: 3,
+        },
+        {
+          id: 29,
+          week: 1,
+          assignment: 3,
+          q: "What is the order of doing a literature search systematically?",
+          o: [
+            "Organise the information, identify the lacunae, develop the research question and synthesize the results",
+            "Organise information, synthesize the results, identify the lacunae and develop the research question",
+            "Identify the lacunae, develop the research question, synthesize the results, organise the information",
+            "Develop the research question, synthesize the results, organise the information and identify the lacunae",
+          ],
+          a: 3,
+        },
+        {
+          id: 30,
+          week: 1,
+          assignment: 3,
+          q: "In the National Library of Medicine (NLM), MeSH means",
+          o: [
+            "Medical Services Heading",
+            "Medical Subject Heading",
+            "Medical Subject Helpline",
+            "Medical Services Helpline",
+          ],
+          a: 1,
+        },
+        {
+          id: 31,
+          week: 2,
+          assignment: 4,
+          q: "This statistic is used to estimate the risk of acquiring a disease. It may be measured as a rate or a proportion.",
+          o: ["Prevalence", "Incidence", "Mortality rate", "None of the above"],
+          a: 1,
+        },
+        {
+          id: 32,
+          week: 2,
+          assignment: 4,
+          q: "A population of 500 persons was followed for a period of one year. 20 had the disease of interest at baseline and another 30 new cases developed during follow-up. What are the point prevalence at the start and the prevalence for the year, respectively?",
+          o: ["6%, 10%", "4%, 10%", "5%, 12%", "4%, 12%"],
+          a: 1,
+        },
+        {
+          id: 33,
+          week: 2,
+          assignment: 4,
+          q: "Which measure is useful for reflecting the severity of an acute infectious disease?",
+          o: [
+            "Case fatality rate",
+            "Incidence rate",
+            "Prevalence",
+            "Morbidity rate",
+          ],
+          a: 0,
+        },
+        {
+          id: 34,
+          week: 2,
+          assignment: 4,
+          q: "Which one of the following statements is true?",
+          o: [
+            "Low cure rate can reduce the prevalence of a disease",
+            "High case fatality can increase the prevalence of a disease",
+            "Both 'a' & 'b' are true",
+            "High cure rate and high case fatality can reduce the prevalence of a disease",
+          ],
+          a: 3,
+        },
+        {
+          id: 35,
+          week: 2,
+          assignment: 4,
+          q: "Which of the following must be considered while measuring disease occurrence?",
+          o: [
+            "The number of people affected by the disease",
+            "The population size from which the cases of disease arise",
+            "The length of the time that the population is followed",
+            "All the above",
+          ],
+          a: 3,
+        },
+        {
+          id: 36,
+          week: 2,
+          assignment: 4,
+          q: "Which measure reflects the impact of a disease on a population in terms of death?",
+          o: [
+            "Incidence density",
+            "Cure rate",
+            "Disease specific mortality",
+            "Attack rate",
+          ],
+          a: 2,
+        },
+        {
+          id: 37,
+          week: 2,
+          assignment: 4,
+          q: "While measuring the frequency of a chronic disease in a community in terms of incidence per 1000 persons per year and point prevalence per 1000 persons, what pattern of incidence and prevalence is expected?",
+          o: [
+            "Low prevalence, high incidence",
+            "High prevalence, low incidence",
+            "Both prevalence and incidence will be similar",
+            "None of the above statements are true",
+          ],
+          a: 1,
+        },
+        {
+          id: 38,
+          week: 2,
+          assignment: 4,
+          q: "__________________ is also referred to as 'Attack rate'.",
+          o: [
+            "Case fatality",
+            "Mortality rate",
+            "Cumulative incidence",
+            "Period prevalence",
+          ],
+          a: 2,
+        },
+        {
+          id: 39,
+          week: 2,
+          assignment: 4,
+          q: "In a study among 5420 children aged 3–5 years, 27 children were diagnosed with autistic disorder. What is the prevalence of autism per 1000 children?",
+          o: ["5.01", "5.53", "3.35", "4.98"],
+          a: 3,
+        },
+        {
+          id: 40,
+          week: 2,
+          assignment: 4,
+          q: "Which of the following must be considered while measuring disease occurrence?",
+          o: [
+            "The number of people affected by the disease",
+            "The population size from which the cases of disease arise",
+            "The length of the time that the population is followed",
+            "All the above",
+          ],
+          a: 3,
+        },
+        {
+          id: 41,
+          week: 2,
+          assignment: 5,
+          q: "In a cross-sectional survey we can observe one or more outcomes.",
+          o: ["True", "False"],
+          a: 0,
+        },
+        {
+          id: 42,
+          week: 2,
+          assignment: 5,
+          q: "Disease aetiology can be studied in a cross-sectional survey.",
+          o: ["True", "False"],
+          a: 1,
+        },
+        {
+          id: 43,
+          week: 2,
+          assignment: 5,
+          q: "What is the unit of analysis in an ecological study?",
+          o: ["Individual", "Group", "Both 'a' & 'b'", "None of the above"],
+          a: 1,
+        },
+        {
+          id: 44,
+          week: 2,
+          assignment: 5,
+          q: "Which study design(s) is/are useful for describing uncommon clinical manifestations?",
+          o: [
+            "Case reports",
+            "Case series",
+            "Both 'a' & 'b'",
+            "Ecological study",
+          ],
+          a: 2,
+        },
+        {
+          id: 45,
+          week: 2,
+          assignment: 5,
+          q: "Case reports can include presentation of:",
+          o: [
+            "Unique features/symptoms of a disease",
+            "Rare manifestation of common disease",
+            "New or unfamiliar diseases",
+            "All of the above",
+          ],
+          a: 3,
+        },
+        {
+          id: 46,
+          week: 2,
+          assignment: 5,
+          q: "Which one of the following is useful to measure the burden or magnitude of a health condition?",
+          o: [
+            "Case-control study",
+            "Cross-sectional study",
+            "Case report",
+            "Case series",
+          ],
+          a: 1,
+        },
+        {
+          id: 47,
+          week: 2,
+          assignment: 5,
+          q: "Which of the following is wrong about descriptive study designs?",
+          o: [
+            "Describe the study outcome for 1 group",
+            "Compare the study outcomes for 2 groups",
+            "Calculate the incidence for surveillance data",
+            "Calculate prevalence for cross-sectional study",
+          ],
+          a: 1,
+        },
+        {
+          id: 48,
+          week: 2,
+          assignment: 5,
+          q: "Descriptive epidemiology study designs can answer all of the following questions EXCEPT:",
+          o: ["Who?", "When?", "Where?", "Why?"],
+          a: 3,
+        },
+        {
+          id: 49,
+          week: 2,
+          assignment: 5,
+          q: "Which one of the following study designs does not employ comparison groups to answer the primary study objective?",
+          o: [
+            "Cross-sectional study",
+            "Cohort study",
+            "Ecological study",
+            "Case-control study",
+          ],
+          a: 0,
+        },
+        {
+          id: 50,
+          week: 2,
+          assignment: 5,
+          q: "What is the unit of observation in the cross-sectional study?",
+          o: ["Individual", "Group", "Both 'a' & 'b'", "None of the above"],
+          a: 0,
+        },
+        {
+          id: 51,
+          week: 2,
+          assignment: 6,
+          q: "If the odds of exposure among cases is lower than the odds of exposure among the controls, the odds ratio will be:",
+          o: ["More than 1", "Less than 1", "Equal to 1", "None of the above"],
+          a: 1,
+        },
+        {
+          id: 52,
+          week: 2,
+          assignment: 6,
+          q: "Exposure is not assigned by the investigator in which of the following study designs?",
+          o: ["Cohort", "Case-control", "Cross-sectional", "All of the above"],
+          a: 3,
+        },
+        {
+          id: 53,
+          week: 2,
+          assignment: 6,
+          q: "Which study design is useful to measure the incidence of a particular disease?",
+          o: [
+            "Cross-sectional study",
+            "Case-control study",
+            "Cohort study",
+            "Experimental study",
+          ],
+          a: 2,
+        },
+        {
+          id: 54,
+          week: 2,
+          assignment: 6,
+          q: "Which study design is better suited to demonstrate a temporal association between exposure and disease?",
+          o: [
+            "Cross-sectional study",
+            "Case-control study",
+            "Cohort study",
+            "Ecological study",
+          ],
+          a: 2,
+        },
+        {
+          id: 55,
+          week: 2,
+          assignment: 6,
+          q: "Cohort study is suitable for rare diseases.",
+          o: ["True", "False"],
+          a: 1,
+        },
+        {
+          id: 56,
+          week: 2,
+          assignment: 6,
+          q: "Which of the following statements is true about the cohort study?",
+          o: [
+            "It is not suitable for disease with a long latency period",
+            "Loss to follow up can introduce bias",
+            "Both 'a' & 'b'",
+            "None of the above",
+          ],
+          a: 2,
+        },
+        {
+          id: 57,
+          week: 2,
+          assignment: 6,
+          q: "Relative risk of more than 1 indicates:",
+          o: [
+            "Incidence in unexposed is higher than exposed",
+            "Incidence in exposed and unexposed are the same",
+            "Incidence in exposed is higher than unexposed",
+            "Incidence is significant",
+          ],
+          a: 2,
+        },
+        {
+          id: 58,
+          week: 2,
+          assignment: 6,
+          q: "All babies born in a particular year will form a birth cohort.",
+          o: ["True", "False"],
+          a: 0,
+        },
+        {
+          id: 59,
+          week: 2,
+          assignment: 6,
+          q: "Which of the following is NOT true regarding a case-control study?\n(i) Appropriate for study of rare outcomes\n(ii) More time consuming than cohort study\n(iii) Multiple exposures can be examined\n(iv) Relatively expensive compared to cohort study",
+          o: [
+            "Both (i) and (ii)",
+            "Both (ii) and (iii)",
+            "Both (ii) and (iv)",
+            "Both (iii) and (iv)",
+          ],
+          a: 2,
+        },
+        {
+          id: 60,
+          week: 2,
+          assignment: 6,
+          q: "What is an appropriate measure of statistical association in a case-control study?",
+          o: [
+            "Prevalence ratio",
+            "Risk ratio",
+            "Odds ratio",
+            "Pearson's correlation coefficient",
+          ],
+          a: 2,
+        },
+        {
+          id: 61,
+          week: 3,
+          assignment: 7,
+          q: "Which of the following is one of the cornerstones of a RCT?",
+          o: ["Recruitment", "Randomization", "Blinding", "Sampling"],
+          a: 1,
+        },
+        {
+          id: 62,
+          week: 3,
+          assignment: 7,
+          q: "A pharmacologically inactive agent that investigators administer to participants in the control group of a trial",
+          o: ["Comparator drug", "Placebo", "Conjugate", "None of the above"],
+          a: 1,
+        },
+        {
+          id: 63,
+          week: 3,
+          assignment: 7,
+          q: "Which of the following is/are true in a clinical trial?",
+          o: [
+            "Sample size determination",
+            "Approval from regulatory authority",
+            "Agreement between the investigators and sponsors",
+            "All of the above",
+          ],
+          a: 3,
+        },
+        {
+          id: 64,
+          week: 3,
+          assignment: 7,
+          q: "Key methodological components of a Randomized Controlled Trials are",
+          o: [
+            "Use of a control to which the experimental intervention is compared",
+            "Random assignment of participants to intervention",
+            "Taking informed consent from all study participants",
+            "All of the above",
+          ],
+          a: 3,
+        },
+        {
+          id: 65,
+          week: 3,
+          assignment: 7,
+          q: "Single blinding is practiced at the level of",
+          o: ["Investigator", "Participants", "Analysts", "None"],
+          a: 1,
+        },
+        {
+          id: 66,
+          week: 3,
+          assignment: 7,
+          q: "What is the purpose of randomization in a clinical trial?",
+          o: [
+            "To get better power for data analysis",
+            "For generalizing the study findings to the non studied population",
+            "To receive balance in baseline characteristics",
+            "To guarantee that the statistical tests have valid significance levels",
+          ],
+          a: 2,
+        },
+        {
+          id: 67,
+          week: 3,
+          assignment: 7,
+          q: "The purpose of double-blinding in a clinical trial is to",
+          o: [
+            "Achieve comparability of all arms of a clinical trial",
+            "Avoid observer and subject bias",
+            "Avoid observer bias and sampling variation",
+            "Avoid subject bias and sampling variation",
+          ],
+          a: 1,
+        },
+        {
+          id: 68,
+          week: 3,
+          assignment: 7,
+          q: "Efficacy of a new drug can be tested in which of the following phases of a clinical trial?",
+          o: ["Phase 1", "Phase 2", "Phase 3", "Phase 4"],
+          a: 2,
+        },
+        {
+          id: 69,
+          week: 3,
+          assignment: 7,
+          q: "Which of the following interventions can be tested in a clinical trial?",
+          o: [
+            "New vaccines",
+            "New drugs",
+            "Different doses of products",
+            "New diagnostic kit",
+            "All of the above",
+          ],
+          a: 4,
+        },
+        {
+          id: 70,
+          week: 3,
+          assignment: 7,
+          q: "Which phase of a clinical trial is referred to as post-marketing surveillance?",
+          o: ["Phase 1", "Phase 2", "Phase 3", "Phase 4"],
+          a: 3,
+        },
+        {
+          id: 71,
+          week: 3,
+          assignment: 8,
+          q: "To reduce selection bias in case-control studies, all the following are true EXCEPT",
+          o: [
+            "Use population based design",
+            "Apply different eligibility criteria for selecting cases and controls",
+            "Both cases and controls undergo the same diagnostic procedures",
+            "Avoid hospital based design",
+          ],
+          a: 1,
+        },
+        {
+          id: 72,
+          week: 3,
+          assignment: 8,
+          q: "The method which can be used to alleviate confounding during data analysis in an epidemiological study",
+          o: [
+            "Multivariate analysis",
+            "Restriction",
+            "Matching",
+            "Randomization",
+          ],
+          a: 0,
+        },
+        {
+          id: 73,
+          week: 3,
+          assignment: 8,
+          q: "Obtaining an accurate estimate of disease frequency and effect of exposure on health outcomes in study population pertains to",
+          o: ["External validity", "Internal validity", "Bias", "Confounding"],
+          a: 1,
+        },
+        {
+          id: 74,
+          week: 3,
+          assignment: 8,
+          q: "Randomized clinical trials can be best described as",
+          o: [
+            "Experimental studies",
+            "Analytic studies",
+            "Descriptive studies",
+            "All of the above",
+          ],
+          a: 0,
+        },
+        {
+          id: 75,
+          week: 3,
+          assignment: 8,
+          q: "Better recall of exposure among the cases in a case-control study can result in",
+          o: [
+            "Information bias",
+            "Confounding",
+            "Investigator bias",
+            "Selection bias",
+          ],
+          a: 0,
+        },
+        {
+          id: 76,
+          week: 3,
+          assignment: 8,
+          q: "Obtaining an estimate that is generalizable to relevant study population in a research study is",
+          o: ["External validity", "Internal validity", "Bias", "Confounding"],
+          a: 0,
+        },
+        {
+          id: 77,
+          week: 3,
+          assignment: 8,
+          q: "Systematic selection of more number of exposed participants with the higher risk of outcome in a cohort study will result in",
+          o: [
+            "Selection bias",
+            "Information bias",
+            "Confounding",
+            "Random error",
+          ],
+          a: 0,
+        },
+        {
+          id: 78,
+          week: 3,
+          assignment: 8,
+          q: "All are true regarding measures to reduce information bias, EXCEPT",
+          o: [
+            "Precise operational definitions of all variables",
+            "Detailed measurement protocols",
+            "Adequate sample size",
+            "Training, Certification and re-certification of data collectors",
+          ],
+          a: 2,
+        },
+        {
+          id: 79,
+          week: 3,
+          assignment: 8,
+          q: "All are true regarding confounding in an epidemiological study, EXCEPT",
+          o: [
+            "May simulate an association that does not exist",
+            "May increase or decrease the strength of association",
+            "May not reveal an association that does exist",
+            "Always change the direction of effect",
+          ],
+          a: 3,
+        },
+        {
+          id: 80,
+          week: 3,
+          assignment: 8,
+          q: "The main reasons for random assignment in a clinical trial is/are",
+          o: [
+            "To maintain equal number of participants in each arm",
+            "To minimize confounding",
+            "To minimize co-interventions and bias in outcome ascertainment",
+            "‘b’ & ‘c’ are true",
+            "‘a’ & ‘b’ are true",
+          ],
+          a: 3,
+        },
+        {
+          id: 81,
+          week: 3,
+          assignment: 9,
+          q: "Which methods in qualitative research use flexible interview guide?",
+          o: [
+            "In-depth Interviews and participant observation",
+            "Focus Group Discussions and In-depth Interviews",
+            "Participant Observation an focus group discussions",
+            "Structured interviews and surveys",
+          ],
+          a: 1,
+        },
+        {
+          id: 82,
+          week: 3,
+          assignment: 9,
+          q: "All the statements regarding Participant Observation is true EXCEPT",
+          o: [
+            "Observer becomes a part of the event/group",
+            "Systematic collection of data is easy",
+            "Analytic methods for observation are not well described",
+            "Data is very detailed",
+          ],
+          a: 1,
+        },
+        {
+          id: 83,
+          week: 3,
+          assignment: 9,
+          q: "Open-ended group interviews that promotes discussions among participants",
+          o: [
+            "In-depth Interviews",
+            "Focus Group Discussions",
+            "Participant Observation",
+            "Structured Interviews",
+          ],
+          a: 1,
+        },
+        {
+          id: 84,
+          week: 3,
+          assignment: 9,
+          q: "Which of the following study designs can be used as a tool to generate ideas/hypotheses?",
+          o: [
+            "Qualitative study",
+            "Case control study",
+            "Experimental study",
+            "Cohort study",
+          ],
+          a: 0,
+        },
+        {
+          id: 85,
+          week: 3,
+          assignment: 9,
+          q: "Open-ended one-to-one interviews to discover interviewee’s own framework of meanings",
+          o: [
+            "In-depth Interviews",
+            "Focus Group Discussions",
+            "Participant Observation",
+            "Structured Interviews",
+          ],
+          a: 0,
+        },
+        {
+          id: 86,
+          week: 3,
+          assignment: 9,
+          q: "The qualitative data analysis method which uses theoretical framework as the basis for analysis",
+          o: [
+            "Content analysis",
+            "Grounded theory",
+            "Schema Analysis",
+            "Hermeneutics",
+          ],
+          a: 0,
+        },
+        {
+          id: 87,
+          week: 3,
+          assignment: 9,
+          q: "The observer becomes a part of the group or event in this method of qualitative study",
+          o: [
+            "In-depth Interviews",
+            "Focus Group Discussions",
+            "Participant Observation",
+            "Structured Interviews",
+          ],
+          a: 2,
+        },
+        {
+          id: 88,
+          week: 3,
+          assignment: 9,
+          q: "All of the following are situations in which qualitative research methods can be used, EXCEPT",
+          o: [
+            "Familiar and sufficiently researched matter",
+            "To seek the depth of understanding",
+            "Exploration of behaviors",
+            "View the social phenomenon holistically",
+          ],
+          a: 0,
+        },
+        {
+          id: 89,
+          week: 3,
+          assignment: 9,
+          q: "The qualitative data analysis method in which investigators codes text into categories and build theoretical models",
+          o: [
+            "Content analysis",
+            "Grounded theory",
+            "Schema Analysis",
+            "Hermeneutics",
+          ],
+          a: 1,
+        },
+        {
+          id: 90,
+          week: 3,
+          assignment: 9,
+          q: "One of the reasons that the results of In-depth Interviews are not generalizable is because of",
+          o: [
+            "Random sampling",
+            "Cluster sampling",
+            "Purposive sampling",
+            "Stratified random sampling",
+          ],
+          a: 2,
+        },
+        {
+          id: 91,
+          week: 4,
+          assignment: 10,
+          q: "A quick and easy indicator of dispersion is",
+          o: ["Arithmetic mean", "Variance", "Standard deviation", "Range"],
+          a: 3,
+        },
+        {
+          id: 92,
+          week: 4,
+          assignment: 10,
+          q: "Choose the odd one among the following",
+          o: ["Range", "Variance", "Mode", "Standard deviation"],
+          a: 2,
+        },
+        {
+          id: 93,
+          week: 4,
+          assignment: 10,
+          q: "In a study, participants are asked to indicate the type of pet they have at home (ex: dog, cat) from a given list. This type of variable is classified as",
+          o: ["Ordinal", "Nominal", "Continuous", "Discrete"],
+          a: 1,
+        },
+        {
+          id: 94,
+          week: 4,
+          assignment: 10,
+          q: "Most commonly used measure of central tendency is",
+          o: ["Mode", "Median", "Mean", "Range"],
+          a: 2,
+        },
+        {
+          id: 95,
+          week: 4,
+          assignment: 10,
+          q: "All are measures of dispersion except",
+          o: ["Arithmetic mean", "Variance", "Standard deviation", "Range"],
+          a: 0,
+        },
+        {
+          id: 96,
+          week: 4,
+          assignment: 10,
+          q: "In a study on hypertension (High blood pressure), patients are categorised based on their systolic blood pressure (SBP) as pre-hypertension, hypertension stage-I and hypertension stage-II. What type of variable is this?",
+          o: ["Qualitative", "Descriptive", "Nominal", "Ordinal"],
+          a: 3,
+        },
+        {
+          id: 97,
+          week: 4,
+          assignment: 10,
+          q: "‘Number of children per household’ is an example of a continuous variable",
+          o: ["True", "False"],
+          a: 1,
+        },
+        {
+          id: 98,
+          week: 4,
+          assignment: 10,
+          q: "In a study, researchers are interested in measuring the cholesterol levels of participants. Cholesterol level is a_________ variable",
+          o: ["Ordinal", "Nominal", "Continuous", "Discrete"],
+          a: 2,
+        },
+        {
+          id: 99,
+          week: 4,
+          assignment: 10,
+          q: "In the following set of data, what is the mean? 4,1,9,7,3,8,2,6",
+          o: ["5", "40", "10", "8"],
+          a: 0,
+        },
+        {
+          id: 100,
+          week: 4,
+          assignment: 10,
+          q: "First quartile (Q1) is equivalent to ____ percentile",
+          o: ["25th", "50th", "75th", "100th"],
+          a: 0,
+        },
+        {
+          id: 101,
+          week: 4,
+          assignment: 11,
+          q: "The following statement is correct regarding sampling error",
+          o: [
+            "Sampling error is difficult to measure in simple random sampling",
+            "Sampling error is easy to measure in stratified sampling",
+            "The magnitude of error can be measured in non-probability samples",
+            "The magnitude of error can be measured in probability samples",
+          ],
+          a: 3,
+        },
+        {
+          id: 102,
+          week: 4,
+          assignment: 11,
+          q: "Random sampling in probability samples reduces the possibility of selection bias",
+          o: ["True", "False"],
+          a: 0,
+        },
+        {
+          id: 103,
+          week: 4,
+          assignment: 11,
+          q: "All the following statements are true regarding simple random sampling except",
+          o: [
+            "Sampling error is easily measurable",
+            "It needs a complete list of all units",
+            "It ensures equal chance of selection for each unit",
+            "It always achieves best representativeness",
+          ],
+          a: 3,
+        },
+        {
+          id: 104,
+          week: 4,
+          assignment: 11,
+          q: "The sampling technique in which every unit in the population has a known probability of being selected in a sample",
+          o: [
+            "Convenience sampling",
+            "Probability sampling",
+            "Purposive sampling",
+            "Subjective sampling",
+          ],
+          a: 1,
+        },
+        {
+          id: 105,
+          week: 4,
+          assignment: 11,
+          q: "Based on the degree of use of mobile phones, a researcher divides the population into three groups (low, moderate, high use). If the researcher then draws a random sample from each user group independently, he has created a _________ sample",
+          o: [
+            "Systematic random",
+            "Simple random",
+            "Stratified random",
+            "Group data",
+          ],
+          a: 2,
+        },
+        {
+          id: 106,
+          week: 4,
+          assignment: 11,
+          q: "The sampling method that allows drawing valid conclusion about the population",
+          o: [
+            "Non-probability sampling",
+            "Convenience sampling",
+            "Probability sampling",
+            "Subjective sampling",
+          ],
+          a: 2,
+        },
+        {
+          id: 107,
+          week: 4,
+          assignment: 11,
+          q: "Sampling based upon equal chance of selection is called",
+          o: [
+            "Stratified random sampling",
+            "Simple random sampling",
+            "Systematic sampling",
+            "Subjective sampling",
+          ],
+          a: 1,
+        },
+        {
+          id: 108,
+          week: 4,
+          assignment: 11,
+          q: "A researcher wishing to draw a sample from sequentially numbered houses uses a random starting point and then selects every 7th house, s/he has thus drawn a _________ sample",
+          o: [
+            "Sequential",
+            "Systematic random",
+            "Simple random",
+            "Stratified random",
+          ],
+          a: 1,
+        },
+        {
+          id: 109,
+          week: 4,
+          assignment: 11,
+          q: "Methods used in probability samples are",
+          o: [
+            "Stratified sampling",
+            "Multi-stage sampling",
+            "Cluster sampling",
+            "All of the above",
+          ],
+          a: 3,
+        },
+        {
+          id: 110,
+          week: 4,
+          assignment: 11,
+          q: "People who volunteer or who can be easily recruited are used in a sampling method called",
+          o: [
+            "Cluster sampling",
+            "Multi-stage sampling",
+            "Convenience sampling",
+            "Systematic sampling",
+          ],
+          a: 2,
+        },
+        {
+          id: 111,
+          week: 4,
+          assignment: 12,
+          q: "The following steps are part of sample size estimation except",
+          o: [
+            "Identify major study variable",
+            "Decide on the desired precision of the estimate",
+            "Adjust for population size",
+            "Adjust for selection bias",
+          ],
+          a: 3,
+        },
+        {
+          id: 112,
+          week: 4,
+          assignment: 12,
+          q: "Population variance can be estimated from",
+          o: [
+            "A pilot study",
+            "Reports of previous studies",
+            "‘a’ & ‘b’",
+            "Population variance can’t be estimated",
+          ],
+          a: 2,
+        },
+        {
+          id: 113,
+          week: 4,
+          assignment: 12,
+          q: "The recommended minimum level of power is",
+          o: ["5%", "95%", "80%", "25%"],
+          a: 2,
+        },
+        {
+          id: 114,
+          week: 4,
+          assignment: 12,
+          q: "Statistical power is defined as the probability of",
+          o: [
+            "Accepting a null hypothesis when it is false",
+            "Rejecting a null hypothesis when it is true",
+            "Rejecting a null hypothesis when it is false",
+            "Failing to reject a null hypothesis when it is false",
+          ],
+          a: 2,
+        },
+        {
+          id: 115,
+          week: 4,
+          assignment: 12,
+          q: "The power of a study",
+          o: [
+            "Does not influence the sample size",
+            "Represented as ‘α’",
+            "“1-β”",
+            "All of the above statements are true",
+          ],
+          a: 2,
+        },
+        {
+          id: 116,
+          week: 4,
+          assignment: 12,
+          q: "When estimating sample size for a study, we need to adjust for",
+          o: [
+            "Expected response rate",
+            "Estimated design effect",
+            "Population size",
+            "All of the above",
+          ],
+          a: 3,
+        },
+        {
+          id: 117,
+          week: 4,
+          assignment: 12,
+          q: "Sampling error is a function of",
+          o: [
+            "Sample size",
+            "Variability in measurement",
+            "’a’ and ‘b’",
+            "None of the above",
+          ],
+          a: 2,
+        },
+        {
+          id: 118,
+          week: 4,
+          assignment: 12,
+          q: "A type-II error occurs when",
+          o: [
+            "The null hypothesis is rejected when it is false",
+            "The null hypothesis is not rejected when it is false",
+            "The null hypothesis is not rejected when it is true",
+            "The null hypothesis is rejected when it is true",
+          ],
+          a: 1,
+        },
+        {
+          id: 119,
+          week: 4,
+          assignment: 12,
+          q: "Design effect of ‘more than 1’ needs to be considered in studies involving",
+          o: [
+            "Cluster sampling",
+            "Simple random sampling",
+            "Stratified random sampling",
+            "Non-probability sampling",
+          ],
+          a: 0,
+        },
+        {
+          id: 120,
+          week: 4,
+          assignment: 12,
+          q: "1 – α is the probability associated with",
+          o: [
+            "Type-I error",
+            "Type-II error",
+            "Level of significance",
+            "Level of confidence",
+          ],
+          a: 3,
+        },
+        {
+          id: 121,
+          week: 5,
+          assignment: 13,
+          q: "Selection of study participants depends on",
+          o: [
+            "Representativeness",
+            "Acceptable cost",
+            "Adequate size",
+            "All of the above",
+          ],
+          a: 3,
+        },
+        {
+          id: 122,
+          week: 5,
+          assignment: 13,
+          q: "Study sample is a subset of accessible population",
+          o: ["True", "False"],
+          a: 0,
+        },
+        {
+          id: 123,
+          week: 5,
+          assignment: 13,
+          q: "While choosing the accessible population and the sampling approach for selection of study population, ____________________is an important factor that we need to consider",
+          o: ["Simplicity", "Technology", "Feasibility", "Reliability"],
+          a: 2,
+        },
+        {
+          id: 124,
+          week: 5,
+          assignment: 13,
+          q: "A good choice of study participant is important because it serves the vital purpose of ensuring that the findings of the study accurately represent the population of interest",
+          o: ["True", "False"],
+          a: 0,
+        },
+        {
+          id: 125,
+          week: 5,
+          assignment: 13,
+          q: "Internal validity means",
+          o: [
+            "The degree to which the inferences drawn from a study can be generalized to a broader population beyond the study population",
+            "The degree to which the observed findings lead to correct inferences about phenomena of interest in the study sample",
+            "The degree to which a test actually measures what it is designed to measure",
+            "The degree to which the findings are reliable",
+          ],
+          a: 1,
+        },
+        {
+          id: 126,
+          week: 5,
+          assignment: 13,
+          q: "Representativeness of a study sample refers to",
+          o: [
+            "The extent to which the characteristics of the sample accurately reflect the characteristics of the population",
+            "The size of the sample which is large enough",
+            "Volunteering nature of the study participants from the population",
+            "None of the above",
+          ],
+          a: 0,
+        },
+        {
+          id: 127,
+          week: 5,
+          assignment: 13,
+          q: "Non-response in a study can be minimized by",
+          o: [
+            "Repeat contact of the study participants",
+            "Providing compensation for participants time",
+            "Less invasive and less sensitive questionnaires",
+            "All of the above",
+          ],
+          a: 3,
+        },
+        {
+          id: 128,
+          week: 5,
+          assignment: 13,
+          q: "External validity means",
+          o: [
+            "The degree to which the inferences drawn from a study can be generalized to a broader population beyond the study population",
+            "The degree to which the observed findings lead to correct inferences about phenomena taking place in the study sample",
+            "The degree to which a test actually measures what it is designed to measure",
+            "The degree to which the findings are reliable",
+          ],
+          a: 0,
+        },
+        {
+          id: 129,
+          week: 5,
+          assignment: 13,
+          q: "Participants may be excluded from the study because of",
+          o: [
+            "Interference with the success of study follow-up",
+            "Ethical concerns",
+            "Interference with the quality of data collection or non-acceptance to participate in the study",
+            "All of the above",
+          ],
+          a: 3,
+        },
+        {
+          id: 130,
+          week: 5,
+          assignment: 13,
+          q: "Reasons for interference with the success of follow-up in a study may include",
+          o: [
+            "Migration of some study participants from the study area",
+            "Marriage of some of the female study participants because of which they might move out of the study area",
+            "Refusals for follow-up",
+            "All of the above",
+          ],
+          a: 3,
+        },
+        {
+          id: 131,
+          week: 5,
+          assignment: 14,
+          q: "Which of the following can be considered to be ad hoc approach as to conduct a research study?",
+          o: [
+            "Researcher is not clear about the objectives",
+            "Researcher has collected the data but is not clear how to analyse it",
+            "Researcher has initiated the study before understanding its rationale fully",
+            "All of the above",
+          ],
+          a: 3,
+        },
+        {
+          id: 132,
+          week: 5,
+          assignment: 14,
+          q: "Study conducted following an ad hoc approach may lead to the following consequences",
+          o: [
+            "Generation of useful data in programs or for policy making",
+            "Efficient utilization of resources",
+            "Serious difficulties in analysis and interpretation",
+            "All of the above",
+          ],
+          a: 2,
+        },
+        {
+          id: 133,
+          week: 5,
+          assignment: 14,
+          q: "The relationship between the outcome and exposure can get affected by the potential risk factors and confounders. This statement is",
+          o: ["True", "False"],
+          a: 0,
+        },
+        {
+          id: 134,
+          week: 5,
+          assignment: 14,
+          q: "Which of the following can improve efficiency of a project?",
+          o: [
+            "Time management",
+            "Planning and scheduling activities",
+            "Budgeting",
+            "All of the above",
+          ],
+          a: 3,
+        },
+        {
+          id: 135,
+          week: 5,
+          assignment: 14,
+          q: "Which of the following verbs can be used to define objective of a study testing hypothesis?",
+          o: ["Estimate", "Determine", "Count", "Measures"],
+          a: 1,
+        },
+        {
+          id: 136,
+          week: 5,
+          assignment: 14,
+          q: "Common reasons for research study failures",
+          o: [
+            "Poorly defined research question",
+            "Vague timelines",
+            "Lack of supervision",
+            "All of the above",
+          ],
+          a: 3,
+        },
+        {
+          id: 137,
+          week: 5,
+          assignment: 14,
+          q: "Which of the following statements regarding study objectives is correct?",
+          o: [
+            "Objectives should be defined at the planning stage of study",
+            "Objectives can be defined at any time of the study",
+            "Objectives can be changed even at the end of the study",
+            "Objectives should be defined before identifying the research question",
+          ],
+          a: 0,
+        },
+        {
+          id: 138,
+          week: 5,
+          assignment: 14,
+          q: "Which of the following represents the correct sequence in a life cycle of a study?",
+          o: [
+            "Identifying data needs, formulating study objectives, planning analysis, spelling out research question",
+            "Formulating study objectives, planning analysis, spelling out research question, identifying data needs",
+            "Identifying data needs, spelling out research question, formulating study objectives, planning analysis",
+            "Formulating study objects, spelling out research question,identifying data needs,planning analysis",
+          ],
+          a: 2,
+        },
+        {
+          id: 139,
+          week: 5,
+          assignment: 14,
+          q: "Which of the following statements best describes the study objectives?",
+          o: [
+            "They should be minimum, achievable and clear",
+            "They can be primary and / or secondary",
+            "Adding objectives during study implementation is a good practice",
+            "‘a’ and ‘b’",
+          ],
+          a: 3,
+        },
+        {
+          id: 140,
+          week: 5,
+          assignment: 14,
+          q: "Sample size for a cross-sectional study is decided based on the following",
+          o: [
+            "Assumed/reported prevalence",
+            "Confidence interval",
+            "Acceptable precision",
+            "All of the above",
+          ],
+          a: 3,
+        },
+        {
+          id: 141,
+          week: 5,
+          assignment: 15,
+          q: "The tool to collect data by review of records",
+          o: [
+            "Abstraction form",
+            "Structured questionnaire",
+            "Structured Observation",
+            "Interview guide",
+          ],
+          a: 0,
+        },
+        {
+          id: 142,
+          week: 5,
+          assignment: 15,
+          q: "While formulating the questions, all of the following need to be followed except",
+          o: [
+            "Short and clear questions",
+            "Avoid ambiguities",
+            "Avoid words of every-day language",
+            "Avoid negatives and double negatives",
+          ],
+          a: 2,
+        },
+        {
+          id: 143,
+          week: 5,
+          assignment: 15,
+          q: "The interviewer does not provide options for responses in",
+          o: [
+            "Open-ended questions",
+            "Close-ended questions",
+            "Semi-open questions",
+            "All of the above",
+          ],
+          a: 0,
+        },
+        {
+          id: 144,
+          week: 5,
+          assignment: 15,
+          q: "The information collected regarding housing, family size etc. in a data collection tool constitute",
+          o: ["Facts", "Knowledge", "Judgments", "Healthy life styles"],
+          a: 0,
+        },
+        {
+          id: 145,
+          week: 5,
+          assignment: 15,
+          q: "What is the disadvantage of closed questions with dichotomous options in a study questionnaire?",
+          o: [
+            "Detailed information available",
+            "Oversimplifies the issues",
+            "Forces an unclear position",
+            "May not be useful for key well framed issues",
+          ],
+          a: 1,
+        },
+        {
+          id: 146,
+          week: 5,
+          assignment: 15,
+          q: "The type of questions in which there is a possibility to add other answer in addition to the options suggested",
+          o: [
+            "Open questions",
+            "Semi-open questions",
+            "Closed questions",
+            "Close questions with multiple options",
+          ],
+          a: 1,
+        },
+        {
+          id: 147,
+          week: 5,
+          assignment: 15,
+          q: "Which component of the data collection instrument is constituted by open, closed and semi-open items?",
+          o: [
+            "Introduction",
+            "Identifier",
+            "Questions",
+            "Concluding statement",
+          ],
+          a: 2,
+        },
+        {
+          id: 148,
+          week: 5,
+          assignment: 15,
+          q: "Structured observation guide",
+          o: [
+            "Is useful to document certain processes",
+            "Uses checklist of items",
+            "Can be used for in-depth interviews",
+            "‘a’ and ‘b’",
+          ],
+          a: 3,
+        },
+        {
+          id: 149,
+          week: 5,
+          assignment: 15,
+          q: "Self-administered questionnaire can be",
+          o: [
+            "Paper-based or computer-assisted",
+            "Used in face-to-face interviews",
+            "Used in telephonic interviews",
+            "All of the above",
+          ],
+          a: 0,
+        },
+        {
+          id: 150,
+          week: 5,
+          assignment: 15,
+          q: "The criteria for evaluating a survey questionnaire include",
+          o: [
+            "Clarity, balance and length of the survey questions",
+            "Comprehensive or constraints of the responses imposed by the questions",
+            "Utility of the instructions provided for answering them",
+            "All of the above",
+          ],
+          a: 3,
+        },
+        {
+          id: 151,
+          week: 6,
+          assignment: 16,
+          q: "Supportive supervision is essential for a good data collection process",
+          o: ["True", "False"],
+          a: 0,
+        },
+        {
+          id: 152,
+          week: 6,
+          assignment: 16,
+          q: "Which one of the following is the proper way of validating the data?",
+          o: [
+            "Repetition of full data collection in the same population",
+            "Data collection in a new population",
+            "Repetition of data collection in a randomly selected subset in the same population",
+            "Repeat data collection not required",
+          ],
+          a: 2,
+        },
+        {
+          id: 153,
+          week: 6,
+          assignment: 16,
+          q: "Reliability denotes",
+          o: [
+            "Precision",
+            "Repeatability",
+            "Reproducibility",
+            "All of the above",
+          ],
+          a: 3,
+        },
+        {
+          id: 154,
+          week: 6,
+          assignment: 16,
+          q: "This should not be done in data collection",
+          o: [
+            "Training of staff members",
+            "Review of collected data for quality and completeness",
+            "Manipulation of data",
+            "Validation",
+          ],
+          a: 2,
+        },
+        {
+          id: 155,
+          week: 6,
+          assignment: 16,
+          q: "Who is mainly responsible to check the accuracy of data collected before leaving the data collection site?",
+          o: [
+            "Field investigator",
+            "Field supervisor",
+            "Principle investigator",
+            "Study participant",
+          ],
+          a: 1,
+        },
+        {
+          id: 156,
+          week: 6,
+          assignment: 16,
+          q: "Which of the following is true about the training of data collection staff?",
+          o: [
+            "Conduct on-site training",
+            "Conduct mock training sessions",
+            "Training is always optional",
+            "‘a’ and ‘b’",
+          ],
+          a: 3,
+        },
+        {
+          id: 157,
+          week: 6,
+          assignment: 16,
+          q: "Time pressure during data collection may result in dilution of the data quality",
+          o: ["True", "False"],
+          a: 0,
+        },
+        {
+          id: 158,
+          week: 6,
+          assignment: 16,
+          q: "Roadmap of data collection is",
+          o: [
+            "Question by question guide",
+            "On site and off site training",
+            "Pilot test",
+            "Supportive supervision",
+          ],
+          a: 0,
+        },
+        {
+          id: 159,
+          week: 6,
+          assignment: 16,
+          q: "Which of the following statement is true regarding data collection for an epidemiological study?",
+          o: [
+            "Reliability refers to consistency of information",
+            "Accuracy is the ability of a measurement to be correct on an average",
+            "Feasibility is the ability of investigator to understand the data",
+            "Both ‘a’ and ‘b’",
+          ],
+          a: 3,
+        },
+        {
+          id: 160,
+          week: 6,
+          assignment: 16,
+          q: "The collected data should be",
+          o: ["Complete", "Readable", "Consistent", "All of the above"],
+          a: 3,
+        },
+        {
+          id: 161,
+          week: 6,
+          assignment: 17,
+          q: "Steps in data management include",
+          o: [
+            "Defining a variable, creating a study database and dictionary",
+            "Enter data, correct errors and create dataset for analysis",
+            "Backup and archive data set",
+            "All of the above",
+          ],
+          a: 3,
+        },
+        {
+          id: 162,
+          week: 6,
+          assignment: 17,
+          q: "Data documentation includes information about the following items",
+          o: [
+            "Structure (Name, number of records etc) alone",
+            "Storage information (Media, location, backup information)",
+            "Structure (Name, number of records etc) ,Variables (Name, values, coding), History (Creation, modification) and Storage information (Media, location, backup information)",
+            "Structure (Name, number of records etc) and Storage information (Media, location, backup information)",
+          ],
+          a: 2,
+        },
+        {
+          id: 163,
+          week: 6,
+          assignment: 17,
+          q: "The design of data collection instrument",
+          o: [
+            "Data entry friendly",
+            "Locally understandable language",
+            "Auto coding function",
+            "All of the above",
+          ],
+          a: 3,
+        },
+        {
+          id: 164,
+          week: 6,
+          assignment: 17,
+          q: "The data dictionary is useful in the following situation",
+          o: [
+            "When a database is shared with others",
+            "When data is collected",
+            "If the researcher has to get back to the database later",
+            "‘a’ and ‘c’",
+          ],
+          a: 3,
+        },
+        {
+          id: 165,
+          week: 6,
+          assignment: 17,
+          q: "When we are creating variable name it should be",
+          o: [
+            "Clearly understandable and should refer to the questionnaire",
+            "Long and can have spaces",
+            "Consistent and without duplicates",
+            "‘a’ and ‘c’",
+          ],
+          a: 3,
+        },
+        {
+          id: 166,
+          week: 6,
+          assignment: 17,
+          q: "In order to avoid duplication in data entry we should mark each questionnaire as the data entry is completed",
+          o: ["True", "False"],
+          a: 0,
+        },
+        {
+          id: 167,
+          week: 6,
+          assignment: 17,
+          q: "Key elements of data management",
+          o: [
+            "Data structure and data entry",
+            "Individual and aggregated databases",
+            "Mother and daughter databases",
+            "All of the above",
+          ],
+          a: 3,
+        },
+        {
+          id: 168,
+          week: 6,
+          assignment: 17,
+          q: "The process of data entry gives us an opportunity for partial data cleaning",
+          o: ["True", "False"],
+          a: 0,
+        },
+        {
+          id: 169,
+          week: 6,
+          assignment: 17,
+          q: "Identifier in the database is",
+          o: [
+            "Unique",
+            "Maintained by a computerized index",
+            "Secured by quality assurance procedures",
+            "All of the above",
+          ],
+          a: 3,
+        },
+        {
+          id: 170,
+          week: 6,
+          assignment: 17,
+          q: "In a data management system each row represents a",
+          o: ["Variable", "Record", "Heading", "Appendix"],
+          a: 1,
+        },
+        {
+          id: 171,
+          week: 6,
+          assignment: 18,
+          q: "In the descriptive stage of analysis we use logistic regression models",
+          o: ["True", "False"],
+          a: 1,
+        },
+        {
+          id: 172,
+          week: 6,
+          assignment: 18,
+          q: "We need to avoid spreadsheet for data management and analysis of any type and size",
+          o: ["True", "False"],
+          a: 0,
+        },
+        {
+          id: 173,
+          week: 6,
+          assignment: 18,
+          q: "In which type of (i) research question and (ii) study outcome and (iii) disease condition (rare/frequent), we choose analytical cross sectional study design with prevalence ratio as the measure of association",
+          o: [
+            "Descriptive type of research question - acute study outcomes - frequent disease condition",
+            "Analytical type of research question – chronic study outcomes - frequent disease condition",
+            "Descriptive type of research question - acute study outcomes - rare disease condition",
+            "Analytical type of research question – chronic study outcomes - rare disease condition",
+          ],
+          a: 1,
+        },
+        {
+          id: 174,
+          week: 6,
+          assignment: 18,
+          q: "We need to avoid the following while performing data analysis",
+          o: [
+            "Post hoc analysis",
+            "Data drenching",
+            "Stratified data analysis",
+            "Both ‘a’ and ‘b’",
+          ],
+          a: 3,
+        },
+        {
+          id: 175,
+          week: 6,
+          assignment: 18,
+          q: "“Epi-Info” is a software used for data entry and data analysis",
+          o: ["True", "False"],
+          a: 0,
+        },
+        {
+          id: 176,
+          week: 6,
+          assignment: 18,
+          q: "Analysis plan depends on",
+          o: [
+            "Objectives of the study",
+            "Budget",
+            "Study type (Descriptive or analytical)",
+            "Both ‘a’ and ‘c’",
+          ],
+          a: 3,
+        },
+        {
+          id: 177,
+          week: 6,
+          assignment: 18,
+          q: "While examining the exposure and outcome association based on a priori hypotheses, we compare groups for frequency of exposures and outcomes using appropriate measure of association",
+          o: ["True", "False"],
+          a: 0,
+        },
+        {
+          id: 178,
+          week: 6,
+          assignment: 18,
+          q: "The three stages of data analysis are in the following order",
+          o: [
+            "Descriptive stage, analytical stage and recoding stage",
+            "Recoding stage, descriptive stage and analytical stage",
+            "Analytical stage, descriptive stage and recoding stage",
+            "Descriptive stage, coding stage, recoding stage",
+          ],
+          a: 1,
+        },
+        {
+          id: 179,
+          week: 6,
+          assignment: 18,
+          q: "If we are doing an analytical study and the study outcome is of acute nature and rare condition what is the appropriate (i) study design and (ii) measure of association?",
+          o: [
+            "Cohort study - relative risk",
+            "Case-control study – odds ratio",
+            "Cross sectional study - prevalence ratio",
+            "Surveillance - Incidence",
+          ],
+          a: 1,
+        },
+        {
+          id: 180,
+          week: 6,
+          assignment: 18,
+          q: "In case of descriptive studies, which of the following is wrong?",
+          o: [
+            "We describe the study outcome for 1 group",
+            "We compare the study outcome for 2 groups",
+            "We calculate the incidence for cohort or surveillance data",
+            "We calculate prevalence for cross sectional survey",
+          ],
+          a: 1,
+        },
+        {
+          id: 181,
+          week: 7,
+          assignment: 19,
+          q: "In the middle of a clinical trial, one participant decides to withdraw from the trial. But, the investigator pressurizes the participant to continue in the study till it completes. Which of the following ethical principles does the investigator violate?",
+          o: ["Justice", "Autonomy", "Beneficence", "Non-Maleficence"],
+          a: 1,
+        },
+        {
+          id: 182,
+          week: 7,
+          assignment: 19,
+          q: "“Do no harm” concept was emphasized in which of the following ethical principles?",
+          o: ["Justice", "Autonomy", "Beneficence", "Non- Maleficence"],
+          a: 3,
+        },
+        {
+          id: 183,
+          week: 7,
+          assignment: 19,
+          q: "In which of the following guidelines, discussion on rationale and justification of risk benefit analysis of research and voluntary consent in research was initiated?",
+          o: [
+            "Belmont report",
+            "Helsinki declaration",
+            "Nuremberg code",
+            "CIOMS guidelines",
+          ],
+          a: 2,
+        },
+        {
+          id: 184,
+          week: 7,
+          assignment: 19,
+          q: "In which type of the following study/studies is informed consent not necessary?",
+          o: [
+            "Investigation of an outbreak",
+            "Analysis of mortality data of 2001-2010",
+            "Using verbal autopsy to determine the cause of death",
+            "All of the above",
+          ],
+          a: 1,
+        },
+        {
+          id: 185,
+          week: 7,
+          assignment: 19,
+          q: "In which of the following type of research, ethical review is mandatory?",
+          o: [
+            "Prevalence of HIV infection using blood investigation",
+            "Awareness about diabetes using questionnaire only",
+            "Calculate out of pocket expenditure using secondary data",
+            "All of the above",
+          ],
+          a: 3,
+        },
+        {
+          id: 186,
+          week: 7,
+          assignment: 19,
+          q: "Which of the following is not important in the context of an informed consent document?",
+          o: [
+            "Detailed description of study procedures",
+            "Budget of the study",
+            "Details regarding compensation and post trial access to care",
+            "Contact details of the Principal Investigator",
+          ],
+          a: 1,
+        },
+        {
+          id: 187,
+          week: 7,
+          assignment: 19,
+          q: "Which of the following are not ethical practices in health research?",
+          o: [
+            "Taking informed consent from participants prior to study participation",
+            "Giving lot of money to induce study participation",
+            "Lack of adherence to study protocol",
+            "‘b’ and ‘c’",
+          ],
+          a: 3,
+        },
+        {
+          id: 188,
+          week: 7,
+          assignment: 19,
+          q: "In a clinical research, the researcher knowingly excludes recruitment of female participants without any compelling indications. Which of the following ethical principle does the investigator violates?",
+          o: ["Justice", "Autonomy", "Beneficence", "Non-Maleficence"],
+          a: 0,
+        },
+        {
+          id: 189,
+          week: 7,
+          assignment: 19,
+          q: "Genetic research that involves human beings and conducted by a private research institute should follow",
+          o: [
+            "ICMR Guidelines",
+            "Genome Policy and Genetic Research [2000]",
+            "Both ‘a’ and b’",
+            "None",
+          ],
+          a: 2,
+        },
+        {
+          id: 190,
+          week: 7,
+          assignment: 19,
+          q: "Which of the following aspects are NOT examined during regulatory review?",
+          o: [
+            "Data from pre-clinical studies",
+            "Specifications regarding protection of Intellectual Property Rights",
+            "Implications on environment in case of genetically engineered products",
+            "Investigators competence and safeguards for human participant protection",
+          ],
+          a: 3,
+        },
+        {
+          id: 191,
+          week: 7,
+          assignment: 20,
+          q: "Bodies like Drug Controller General of India, Health Ministry Screening Committee are concerned with",
+          o: [
+            "Regulatory review",
+            "Scientific review",
+            "Ethics review",
+            "All of the above",
+          ],
+          a: 0,
+        },
+        {
+          id: 192,
+          week: 7,
+          assignment: 20,
+          q: "In a clinical trial, Independent Monitoring committee is appointed by the following",
+          o: [
+            "Sponsors",
+            "Investigators",
+            "Participants",
+            "Regulatory authorities",
+          ],
+          a: 0,
+        },
+        {
+          id: 193,
+          week: 7,
+          assignment: 20,
+          q: "Informed consent is more than just a signature on a form; it is process of information exchange",
+          o: ["True", "False"],
+          a: 0,
+        },
+        {
+          id: 194,
+          week: 7,
+          assignment: 20,
+          q: "The primary responsibilities of the Data Safety Monitoring Body (DSMB) are to",
+          o: [
+            "Periodically review and evaluate the accumulated study data for participant safety, study conduct and progress of trial",
+            "Periodically review and evaluate the accumulated study data for participant safety, study conduct and progress and make recommendations concerning the continuation, modification, or termination of the trial",
+            "Periodically make recommendations concerning the continuation, modification, or termination of the trial",
+            "None",
+          ],
+          a: 1,
+        },
+        {
+          id: 195,
+          week: 7,
+          assignment: 20,
+          q: "Which of the following best describes the advantages of conducting a Randomized controlled trial?",
+          o: [
+            "It is the only effective design for overcoming selection bias of participants",
+            "The results can be readily generalized",
+            "It is a simple, uncomplicated and non-regulated study design",
+            "It requires small sample size",
+          ],
+          a: 0,
+        },
+        {
+          id: 196,
+          week: 7,
+          assignment: 20,
+          q: "A study design that randomly assigns participants into an experimental group or a control group is called as",
+          o: [
+            "Cohort study",
+            "Case-control study",
+            "Randomized controlled trials",
+            "Cross-sectional study",
+          ],
+          a: 2,
+        },
+        {
+          id: 197,
+          week: 7,
+          assignment: 20,
+          q: "To ensure that safety and welfare of the research participants is adequately protected, it is important that the clinical trial protocol is critically reviewed for the following",
+          o: [
+            "Scientific content",
+            "Ethical issues",
+            "Regulatory norms",
+            "All of the above",
+          ],
+          a: 1,
+        },
+        {
+          id: 198,
+          week: 7,
+          assignment: 20,
+          q: "Which of the following are monitored in a clinical trial?",
+          o: [
+            "Adherence to Good clinical practice",
+            "Documentation of informed consent, randomization and study product administration",
+            "Adverse events reporting",
+            "All of the above",
+          ],
+          a: 3,
+        },
+        {
+          id: 199,
+          week: 7,
+          assignment: 20,
+          q: "When is the Informed consent obtained from the subjects in a clinical trial?",
+          o: [
+            "Prior to participation in the trial",
+            "Just after the trial has started",
+            "At any point during the conduct of a trial",
+            "At the end of the trial",
+          ],
+          a: 0,
+        },
+        {
+          id: 200,
+          week: 7,
+          assignment: 20,
+          q: "Investigators are required to report adverse events occurring during a clinical trial to which of the following agencies?",
+          o: [
+            "Regulatory authority",
+            "Sponsor",
+            "Institutional Ethics Committee",
+            "All of the above",
+          ],
+          a: 3,
+        },
+        {
+          id: 201,
+          week: 8,
+          assignment: 21,
+          q: "References need to be written following standard guidelines such as International Committee of Medical Journal Editors (ICMJE)",
+          o: ["True", "False"],
+          a: 0,
+        },
+        {
+          id: 202,
+          week: 8,
+          assignment: 21,
+          q: "Which of the following needs to be spelt out in “Expected benefits” section of the concept proposal?",
+          o: [
+            "Expected outputs that the study will generate with timeline",
+            "Proposed immediate action based on research findings",
+            "How this research may set agenda for further research",
+            "All of the above",
+          ],
+          a: 3,
+        },
+        {
+          id: 203,
+          week: 8,
+          assignment: 21,
+          q: "Budget estimate is not mandatory in the concept papers. However, it would be very useful to prepare an indicative budget",
+          o: ["True", "False"],
+          a: 0,
+        },
+        {
+          id: 204,
+          week: 8,
+          assignment: 21,
+          q: "Advantages of writing a concept paper include",
+          o: [
+            "You may be able to organize your ideas",
+            "It gives an opportunity to stand out and receive a positive response from reviewers",
+            "You are sure to get funding",
+            "‘a’ and ‘b’",
+          ],
+          a: 3,
+        },
+        {
+          id: 205,
+          week: 8,
+          assignment: 21,
+          q: "The elements of the methods section in the concept proposal needs to be adapted according to the study design chosen",
+          o: ["True", "False"],
+          a: 0,
+        },
+        {
+          id: 206,
+          week: 8,
+          assignment: 21,
+          q: "The initial outline of the research protocol",
+          o: [
+            "Concept paper",
+            "Abstract",
+            "Poster presentation",
+            "All of the above",
+          ],
+          a: 0,
+        },
+        {
+          id: 207,
+          week: 8,
+          assignment: 21,
+          q: "Which among the following is not a component of concept paper?",
+          o: [
+            "Background and Justification",
+            "Objectives and Methods",
+            "Expected benefits, Key references and Budget",
+            "Conclusion",
+          ],
+          a: 3,
+        },
+        {
+          id: 208,
+          week: 8,
+          assignment: 21,
+          q: "The ethics section of the concept proposal should include information about",
+          o: [
+            "Key measures taken to protect the study participants",
+            "The ethics committee to which the study will be submitted for approval",
+            "Scientific committee that will review the study",
+            "‘a’ and ‘b’",
+          ],
+          a: 3,
+        },
+        {
+          id: 209,
+          week: 8,
+          assignment: 21,
+          q: "Which of the following is NOT true about references in the concept paper?",
+          o: [
+            "We can cite references in Introduction and Methods section",
+            "It is important to write references following standard guidelines",
+            "Statements should be linked to references",
+            "We can have as many references as possible",
+          ],
+          a: 3,
+        },
+        {
+          id: 210,
+          week: 8,
+          assignment: 21,
+          q: "While writing the concept papers for intervention studies, the methods section must have the following details",
+          o: [
+            "Primary and secondary outcome definitions",
+            "Randomization, sequence allocation and allocation concealment",
+            "Dose, frequency, nature of Intervention",
+            "All of the above",
+          ],
+          a: 3,
+        },
+        {
+          id: 211,
+          week: 8,
+          assignment: 22,
+          q: "Inclusion and exclusion criteria should be included under the following section in the protocol",
+          o: ["Sampling", "Study Population", "Study design", "Sample size"],
+          a: 1,
+        },
+        {
+          id: 212,
+          week: 8,
+          assignment: 22,
+          q: "The details regarding data quality assurance should be written in the following section in the protocol",
+          o: [
+            "Data collection",
+            "Data analysis",
+            "Project implementation",
+            "Data entry",
+          ],
+          a: 2,
+        },
+        {
+          id: 213,
+          week: 8,
+          assignment: 22,
+          q: "Study participants willingness to participate in the study is obtained by",
+          o: [
+            "Informed consent",
+            "Oral commitment",
+            "Willingness not necessary",
+            "None of the above",
+          ],
+          a: 0,
+        },
+        {
+          id: 214,
+          week: 8,
+          assignment: 22,
+          q: "The paragraph which explains how the objectives lead to indicators",
+          o: ["Introduction", "Study design", "Budget", "Objectives"],
+          a: 1,
+        },
+        {
+          id: 215,
+          week: 8,
+          assignment: 22,
+          q: "The following annexure in the study protocol deals with toxicity management",
+          o: [
+            "Study management",
+            "Standard operating procedures",
+            "Consent forms",
+            "Adverse event management form",
+          ],
+          a: 3,
+        },
+        {
+          id: 216,
+          week: 8,
+          assignment: 22,
+          q: "Study population, sample size and sampling are included in the following section of the protocol",
+          o: ["Introduction", "Methods", "Objectives", "Expected Benefits"],
+          a: 1,
+        },
+        {
+          id: 217,
+          week: 8,
+          assignment: 22,
+          q: "First step for writing a successful protocol",
+          o: [
+            "Write a one page concept paper",
+            "Identify topic, research question and objectives",
+            "Write a draft protocol",
+            "Seek ethics approval",
+          ],
+          a: 1,
+        },
+        {
+          id: 218,
+          week: 8,
+          assignment: 22,
+          q: "Human participant protection paragraph addresses all except",
+          o: [
+            "Confidentiality",
+            "Risks",
+            "Compensation",
+            "Sample size calculation",
+          ],
+          a: 3,
+        },
+        {
+          id: 219,
+          week: 8,
+          assignment: 22,
+          q: "Description of the intervention is essential in a research protocol for",
+          o: [
+            "Experimental study",
+            "Case-control study",
+            "Cohort study",
+            "Cross-sectional study",
+          ],
+          a: 0,
+        },
+        {
+          id: 220,
+          week: 8,
+          assignment: 22,
+          q: "Key outcomes and exposures should be explained under",
+          o: [
+            "Data analysis",
+            "Data Collection tools",
+            "Sampling",
+            "Operational definitions",
+          ],
+          a: 3,
+        },
+        {
+          id: 221,
+          week: 8,
+          assignment: 23,
+          q: "All of the following statements regarding research publications are correct, Except",
+          o: [
+            "Publishing paper is important for getting promotion in academic institutions",
+            "Publishing research findings help to identify the research gaps",
+            "Negative findings in a research should not be published",
+            "Publishing research findings improves the credibility of a researcher",
+          ],
+          a: 2,
+        },
+        {
+          id: 222,
+          week: 8,
+          assignment: 23,
+          q: "Which of the following is incorrect about authorship?",
+          o: [
+            "Authorship confers credit, implies responsibility and accountability of the published work",
+            "International Committee of Medical Journal Editors recommends criteria on authorship",
+            "It is mandatory to declare the contribution of each author",
+            "It is not mandatory that all authors should approve the final version of the manuscript",
+          ],
+          a: 3,
+        },
+        {
+          id: 223,
+          week: 8,
+          assignment: 23,
+          q: "Which of the following is false about plagiarism?",
+          o: [
+            "It can be copying and pasting of contents from a published manuscript",
+            "It can be copying someone’s idea",
+            "It is not considered as a serious publication misconduct",
+            "‘Urkund’ is one of the software used to check plagiarism",
+          ],
+          a: 2,
+        },
+        {
+          id: 224,
+          week: 8,
+          assignment: 23,
+          q: "Which of the following organizations directly deals with publication ethics?",
+          o: [
+            "Indian Medical Association (IMA)",
+            "Committee on Publication Ethics (COPE)",
+            "World Health Organization (WHO)",
+            "Joint National Committee (JNC)",
+          ],
+          a: 1,
+        },
+        {
+          id: 225,
+          week: 8,
+          assignment: 23,
+          q: "All clinical trials in India should be registered with Clinical Trial Registry of India.",
+          o: ["True", "False"],
+          a: 0,
+        },
+        {
+          id: 226,
+          week: 8,
+          assignment: 23,
+          q: "All the following help in reducing ethical issues associated with research publication, EXCEPT",
+          o: [
+            "Obtaining the institutional ethics committee permission",
+            "Including a guest author to improve the acceptance of the manuscript",
+            "Obtaining permission from the copyright holder to reproduce a figure",
+            "Declaring familial relationship between an author and the CEO of the funding agency",
+          ],
+          a: 1,
+        },
+        {
+          id: 227,
+          week: 8,
+          assignment: 23,
+          q: "Which of the following is NOT an example of publication misconduct?",
+          o: [
+            "Plagiarism",
+            "Ghost authorship",
+            "Data fabrication",
+            "Conflict of interest",
+          ],
+          a: 3,
+        },
+        {
+          id: 228,
+          week: 8,
+          assignment: 23,
+          q: "Which of the following is INCORRECT about publishing research finding?",
+          o: [
+            "Publication often helps in career progression and academic promotion",
+            "It is a way to communicate research findings with the peer groups",
+            "Conflicts of interest can be suppressed as it has implication in study findings",
+            "It identifies research gaps",
+          ],
+          a: 2,
+        },
+        {
+          id: 229,
+          week: 8,
+          assignment: 23,
+          q: "Which of the following is recommended to avoid plagiarism in a research publication?",
+          o: [
+            "Give compensation to the original author",
+            "Cite the reference",
+            "Do not acknowledge an unpublished work",
+            "Rephrase the content without reference",
+          ],
+          a: 1,
+        },
+        {
+          id: 230,
+          week: 8,
+          assignment: 23,
+          q: "State whether true or false. The first author is mostly responsible for addressing the comments received from the reviewers of the journal.",
+          o: ["True", "False"],
+          a: 1,
+        },
+      ];
+      let quiz = [],
+        pos = 0,
+        score = 0,
+        results = [],
+        answered = false;
+      function shuffle(a) {
+        for (let i = a.length - 1; i > 0; i--) {
+          let j = Math.floor(Math.random() * (i + 1));
+          [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+      }
+      function esc(s) {
+        return s.replace(
+          /[&<>"']/g,
+          (m) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#039;",
+            })[m],
+        );
+      }
+      function start() {
+        quiz = shuffle(
+          BANK.map((x) => ({
+            ...x,
+            opts: x.o.map((label, i) => ({ label, correct: i === x.a })),
+          })),
+        );
+        pos = 0;
+        score = 0;
+        results = [];
+        document.getElementById("start").classList.add("hidden");
+        document.getElementById("result").classList.add("hidden");
+        document.getElementById("quiz").classList.remove("hidden");
+        show();
+      }
+      function show() {
+        answered = false;
+        let x = quiz[pos];
+        document.getElementById("num").textContent = pos + 1;
+        document.getElementById("question").textContent = x.q;
+        document.getElementById("feedback").textContent = "";
+        document.getElementById("nextBtn").classList.add("hidden");
+        let box = document.getElementById("options");
+        box.innerHTML = "";
+        shuffle(x.opts.map((o) => ({ ...o }))).forEach((o, i) => {
+          let b = document.createElement("button");
+          b.className = "opt";
+          b.type = "button";
+          b.innerHTML =
+            '<span class="letter">' +
+            String.fromCharCode(65 + i) +
+            ".</span><span>" +
+            esc(o.label) +
+            "</span>";
+          b.onclick = () => answer(b, o, x);
+          box.appendChild(b);
+        });
+        document.getElementById("card").focus();
+      }
+      function answer(btn, o, x) {
+        if (answered) return;
+        answered = true;
+        let ok = o.correct;
+        if (ok) score++;
+        results.push({ q: x.q, chosen: o.label, correct: x.o[x.a] });
+        document.querySelectorAll(".opt").forEach((b) => (b.disabled = true));
+        btn.classList.add(ok ? "correct" : "wrong");
+        if (!ok) {
+          document.querySelectorAll(".opt").forEach((b) => {
+            if (b.querySelector("span:last-child").textContent === x.o[x.a])
+              b.classList.add("correct");
+          });
+          document.getElementById("feedback").textContent =
+            "Not quite. Correct answer: " + x.o[x.a];
+        } else document.getElementById("feedback").textContent = "Correct!";
+        document.getElementById("nextBtn").classList.remove("hidden");
+      }
+      function next() {
+        if (!answered) return;
+        if (pos === quiz.length - 1) finish();
+        else {
+          pos++;
+          show();
+        }
+      }
+      function finish() {
+        document.getElementById("quiz").classList.add("hidden");
+        document.getElementById("result").classList.remove("hidden");
+        let pct = Math.round((score / 230) * 1000) / 10;
+        document.getElementById("score").textContent = score;
+        document.getElementById("pct").textContent = pct + "%";
+        document.getElementById("msg").textContent =
+          score === 230
+            ? "PERFECT — all 230!"
+            : score >= 184
+              ? "Excellent work — strong performance."
+              : score >= 138
+                ? "Solid work — review the misses and go again."
+                : "No panic — use the review and run it again.";
+        let r = document.getElementById("review");
+        r.innerHTML = "";
+        results.forEach((x, i) => {
+          if (x.chosen !== x.correct) {
+            let d = document.createElement("div");
+            d.className = "review-item";
+            d.innerHTML =
+              '<div class="review-q">' +
+              (i + 1) +
+              ". " +
+              esc(x.q) +
+              '</div><div class="review-a">Your answer: ' +
+              esc(x.chosen) +
+              "<br>Correct answer: " +
+              esc(x.correct) +
+              "</div>";
+            r.appendChild(d);
+          }
+        });
+      }
+      document.getElementById("startBtn").onclick = start;
+      document.getElementById("nextBtn").onclick = next;
+      document.getElementById("restartBtn").onclick = start;
+      document.getElementById("restartTop").onclick = start;
+      document.addEventListener("keydown", (e) => {
+        if (document.getElementById("quiz").classList.contains("hidden"))
+          return;
+        if (!answered && /^[1-5a-e]$/i.test(e.key)) {
+          let n = /[1-5]/.test(e.key)
+            ? +e.key - 1
+            : e.key.toUpperCase().charCodeAt(0) - 65;
+          let b = document.querySelectorAll(".opt");
+          if (b[n]) b[n].click();
+        } else if (answered && (e.key === "Enter" || e.key === " ")) next();
+      });
+    </script>
+  </body>
+</html>

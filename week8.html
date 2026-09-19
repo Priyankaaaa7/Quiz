@@ -1,0 +1,1003 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NPTEL Health Research — Week 8 Quiz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,600&family=Public+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --paper: #edf1f3;
+        --grid: #dce4e8;
+        --ink: #15233b;
+        --muted: #55667b;
+        --card: #fbfcfc;
+        --line: #c4cfd8;
+        --accent: #e8a317;
+        --good: #17754f;
+        --good-bg: #e2f3ea;
+        --bad: #a93445;
+        --bad-bg: #fbe8eb;
+        --serif: "Literata", Georgia, "Times New Roman", serif;
+        --sans:
+          "Public Sans", system-ui, -apple-system, "Segoe UI", Roboto,
+          sans-serif;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        -webkit-text-size-adjust: 100%;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: var(--sans);
+        font-size: 16px;
+        line-height: 1.5;
+        color: var(--ink);
+        background-color: var(--paper);
+        background-image:
+          linear-gradient(var(--grid) 1px, transparent 1px),
+          linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+        background-size: 28px 28px;
+      }
+      .wrap {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 32px 20px 64px;
+      }
+      [hidden] {
+        display: none !important;
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: var(--serif);
+        font-weight: 600;
+        margin: 0;
+        letter-spacing: -0.01em;
+      }
+      button {
+        font: inherit;
+        color: inherit;
+        cursor: pointer;
+      }
+      button:focus-visible {
+        outline: 3px solid var(--ink);
+        outline-offset: 3px;
+      }
+      .btn {
+        display: inline-block;
+        padding: 12px 24px;
+        border: 2px solid var(--ink);
+        border-radius: 8px;
+        background: var(--ink);
+        color: #fff;
+        font-weight: 600;
+        transition:
+          background-color 0.15s,
+          color 0.15s;
+      }
+      .btn:hover {
+        background: #24375a;
+      }
+      .link-btn {
+        border: 0;
+        background: none;
+        padding: 4px 0;
+        color: var(--muted);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        font-size: 14px;
+      }
+      .link-btn:hover {
+        color: var(--ink);
+      }
+      .ruler {
+        display: flex;
+        align-items: flex-end;
+        gap: 3px;
+        height: 22px;
+      }
+      .tick {
+        flex: 1;
+        height: 12px;
+        border-radius: 2px;
+        background: var(--card);
+        border: 1px solid var(--line);
+        transition:
+          height 0.2s,
+          background-color 0.2s;
+      }
+      .tick.done {
+        background: var(--ink);
+        border-color: var(--ink);
+      }
+      .tick.current {
+        height: 22px;
+        background: var(--accent);
+        border-color: var(--accent);
+      }
+      .tick.right {
+        background: var(--good);
+        border-color: var(--good);
+        height: 18px;
+      }
+      .tick.wrong {
+        background: var(--bad);
+        border-color: var(--bad);
+        height: 10px;
+      }
+      .intro h1 {
+        font-size: clamp(2rem, 6vw, 2.9rem);
+        line-height: 1.12;
+        margin-bottom: 16px;
+      }
+      .intro p {
+        max-width: 56ch;
+        color: var(--muted);
+        margin: 0 0 12px;
+      }
+      .intro .ruler {
+        margin: 28px 0 32px;
+      }
+      .intro ul {
+        margin: 0 0 32px;
+        padding-left: 20px;
+        max-width: 56ch;
+      }
+      .intro li {
+        margin-bottom: 6px;
+      }
+      .quiz-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 10px;
+        font-size: 14px;
+        color: var(--muted);
+      }
+      .quiz-head strong {
+        color: var(--ink);
+        font-weight: 600;
+      }
+      .card {
+        margin-top: 24px;
+        padding: 28px;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        box-shadow: 0 1px 0 rgba(21, 35, 59, 0.06);
+      }
+      .card:focus {
+        outline: none;
+      }
+      .question {
+        font-size: clamp(1.15rem, 3.2vw, 1.4rem);
+        line-height: 1.4;
+        font-weight: 500;
+        margin-bottom: 22px;
+      }
+      .options {
+        display: grid;
+        gap: 10px;
+      }
+      .opt {
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        width: 100%;
+        padding: 14px 16px;
+        text-align: left;
+        background: #fff;
+        border: 1.5px solid var(--line);
+        border-radius: 10px;
+        transition:
+          border-color 0.15s,
+          background-color 0.15s;
+      }
+      .opt:hover {
+        border-color: var(--ink);
+      }
+      .badge {
+        flex: none;
+        width: 28px;
+        height: 28px;
+        display: grid;
+        place-items: center;
+        border-radius: 6px;
+        border: 1.5px solid var(--line);
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--muted);
+        background: var(--paper);
+      }
+      .opt .txt {
+        flex: 1;
+        padding-top: 2px;
+      }
+      .opt .flag {
+        flex: none;
+        padding-top: 3px;
+        font-size: 13px;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+      .options.locked .opt {
+        cursor: default;
+      }
+      .options.locked .opt:hover {
+        border-color: var(--line);
+      }
+      .opt.correct {
+        border-color: var(--good);
+        background: var(--good-bg);
+      }
+      .opt.correct .badge {
+        background: var(--good);
+        border-color: var(--good);
+        color: #fff;
+      }
+      .opt.correct .flag {
+        color: var(--good);
+      }
+      .opt.wrong {
+        border-color: var(--bad);
+        background: var(--bad-bg);
+      }
+      .opt.wrong .badge {
+        background: var(--bad);
+        border-color: var(--bad);
+        color: #fff;
+      }
+      .opt.wrong .flag {
+        color: var(--bad);
+      }
+      .feedback-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        margin-top: 22px;
+        min-height: 48px;
+      }
+      .feedback {
+        margin: 0;
+        font-weight: 600;
+      }
+      .feedback.good {
+        color: var(--good);
+      }
+      .feedback.bad {
+        color: var(--bad);
+      }
+      .result h2 {
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: var(--muted);
+      }
+      .score {
+        display: flex;
+        align-items: baseline;
+        gap: 12px;
+        margin: 4px 0 8px;
+        font-family: var(--serif);
+      }
+      .score .big {
+        font-size: clamp(4rem, 16vw, 6rem);
+        font-weight: 600;
+        line-height: 1;
+      }
+      .score .of {
+        font-size: clamp(1.3rem, 5vw, 1.8rem);
+        color: var(--muted);
+      }
+      .result .pct {
+        margin: 0 0 6px;
+        font-weight: 600;
+        font-size: 1.1rem;
+      }
+      .result .msg {
+        margin: 0 0 24px;
+        color: var(--muted);
+        max-width: 52ch;
+      }
+      .result .ruler {
+        margin-bottom: 8px;
+      }
+      .legend {
+        font-size: 13px;
+        color: var(--muted);
+        margin: 0 0 28px;
+      }
+      .legend .sw {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 2px;
+        margin: 0 4px 0 0;
+        vertical-align: baseline;
+      }
+      .legend .sw.right {
+        background: var(--good);
+      }
+      .legend .sw.wrong {
+        background: var(--bad);
+        margin-left: 14px;
+      }
+      .review {
+        margin-top: 44px;
+      }
+      .review h3 {
+        font-size: 1.3rem;
+        margin-bottom: 16px;
+      }
+      .review-item {
+        padding: 18px 20px;
+        margin-bottom: 12px;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-left: 5px solid var(--bad);
+        border-radius: 8px;
+      }
+      .review-item .rq {
+        font-family: var(--serif);
+        font-weight: 500;
+        margin: 0 0 10px;
+      }
+      .review-item p {
+        margin: 0 0 4px;
+        font-size: 15px;
+      }
+      .review-item .yours {
+        color: var(--bad);
+      }
+      .review-item .right {
+        color: var(--good);
+        font-weight: 600;
+      }
+      .review-item .src {
+        margin-top: 8px;
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .perfect {
+        padding: 18px 20px;
+        background: var(--good-bg);
+        border: 1px solid var(--good);
+        border-radius: 8px;
+        font-weight: 600;
+        color: var(--good);
+      }
+      @media (max-width: 520px) {
+        .wrap {
+          padding: 20px 14px 48px;
+        }
+        .card {
+          padding: 20px 16px;
+        }
+        .opt {
+          padding: 12px;
+          gap: 10px;
+        }
+        .opt .flag {
+          display: none;
+        }
+        .feedback-row {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .feedback-row .btn {
+          width: 100%;
+          text-align: center;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <section id="screen-start" class="intro">
+        <h1>Health research methods — Week 8</h1>
+        <p>
+          Practice questions from Week 8 NPTEL health research methods: concept
+          papers, research protocols, and publication ethics.
+        </p>
+        <div class="ruler" id="start-ruler" aria-hidden="true"></div>
+        <ul>
+          <li id="start-count"></li>
+          <li>Questions and answer choices are shuffled when appropriate.</li>
+          <li>
+            You see whether each answer is right as you go. Your score appears
+            at the end.
+          </li>
+        </ul>
+        <button class="btn" id="btn-start" type="button">Start quiz</button>
+      </section>
+      <section id="screen-quiz" hidden>
+        <div class="quiz-head">
+          <span
+            >Question <strong id="q-num">1</strong> of
+            <span id="q-total">30</span></span
+          >
+          <button class="link-btn" id="btn-quit" type="button">Restart</button>
+        </div>
+        <div
+          class="ruler"
+          id="quiz-ruler"
+          role="img"
+          aria-label="Progress"
+        ></div>
+        <div class="card" id="card" tabindex="-1">
+          <h2 class="question" id="q-text"></h2>
+          <div class="options" id="options"></div>
+          <div class="feedback-row">
+            <p class="feedback" id="feedback" aria-live="polite"></p>
+            <button class="btn" id="btn-next" type="button" hidden>
+              Next question
+            </button>
+          </div>
+        </div>
+      </section>
+      <section id="screen-result" class="result" hidden>
+        <h2>Your score</h2>
+        <div class="score">
+          <span class="big" id="r-score">0</span
+          ><span class="of" id="r-of">out of 30</span>
+        </div>
+        <p class="pct" id="r-pct"></p>
+        <p class="msg" id="r-msg"></p>
+        <div
+          class="ruler"
+          id="result-ruler"
+          role="img"
+          aria-label="Results by question"
+        ></div>
+        <p class="legend">
+          <span class="sw right"></span>Correct<span class="sw wrong"></span
+          >Incorrect
+        </p>
+        <button class="btn" id="btn-restart" type="button">Restart quiz</button>
+        <div class="review" id="review"></div>
+      </section>
+    </main>
+    <script>
+      (function () {
+        "use strict";
+        var QUIZ_LENGTH = 30;
+        var SOURCES = {
+          21: "Assignment 21: Preparing a concept paper for research projects",
+          22: "Assignment 22: Elements of a protocol for research studies",
+          23: "Assignment 23: Publication ethics",
+        };
+        var BANK = [
+          {
+            s: 21,
+            q: "References need to be written following standard guidelines such as International Committee of Medical Journal Editors (ICMJE)",
+            o: ["True", "False"],
+            a: 0,
+          },
+          {
+            s: 21,
+            q: "Which of the following needs to be spelt out in “Expected benefits” section of the concept proposal?",
+            o: [
+              "Expected outputs that the study will generate with timeline",
+              "Proposed immediate action based on research findings",
+              "How this research may set agenda for further research",
+              "All of the above",
+            ],
+            a: 3,
+          },
+          {
+            s: 21,
+            q: "Budget estimate is not mandatory in the concept papers. However, it would be very useful to prepare an indicative budget",
+            o: ["True", "False"],
+            a: 0,
+          },
+          {
+            s: 21,
+            q: "Advantages of writing a concept paper include",
+            o: [
+              "You may be able to organize your ideas",
+              "It gives an opportunity to stand out and receive a positive response from reviewers",
+              "You are sure to get funding",
+              "‘a’ and ‘b’",
+            ],
+            a: 3,
+          },
+          {
+            s: 21,
+            q: "The elements of the methods section in the concept proposal needs to be adapted according to the study design chosen",
+            o: ["True", "False"],
+            a: 0,
+          },
+          {
+            s: 21,
+            q: "The initial outline of the research protocol",
+            o: [
+              "Concept paper",
+              "Abstract",
+              "Poster presentation",
+              "All of the above",
+            ],
+            a: 0,
+          },
+          {
+            s: 21,
+            q: "Which among the following is not a component of concept paper?",
+            o: [
+              "Background and Justification",
+              "Objectives and Methods",
+              "Expected benefits, Key references and Budget",
+              "Conclusion",
+            ],
+            a: 3,
+          },
+          {
+            s: 21,
+            q: "The ethics section of the concept proposal should include information about",
+            o: [
+              "Key measures taken to protect the study participants",
+              "The ethics committee to which the study will be submitted for approval",
+              "Scientific committee that will review the study",
+              "‘a’ and ‘b’",
+            ],
+            a: 3,
+          },
+          {
+            s: 21,
+            q: "Which of the following is NOT true about references in the concept paper?",
+            o: [
+              "We can cite references in Introduction and Methods section",
+              "It is important to write references following standard guidelines",
+              "Statements should be linked to references",
+              "We can have as many references as possible",
+            ],
+            a: 3,
+          },
+          {
+            s: 21,
+            q: "While writing the concept papers for intervention studies, the methods section must have the following details",
+            o: [
+              "Primary and secondary outcome definitions",
+              "Randomization, sequence allocation and allocation concealment",
+              "Dose, frequency, nature of Intervention",
+              "All of the above",
+            ],
+            a: 3,
+          },
+          {
+            s: 22,
+            q: "Inclusion and exclusion criteria should be included under the following section in the protocol",
+            o: ["Sampling", "Study Population", "Study design", "Sample size"],
+            a: 1,
+          },
+          {
+            s: 22,
+            q: "The details regarding data quality assurance should be written in the following section in the protocol",
+            o: [
+              "Data collection",
+              "Data analysis",
+              "Project implementation",
+              "Data entry",
+            ],
+            a: 2,
+          },
+          {
+            s: 22,
+            q: "Study participants willingness to participate in the study is obtained by",
+            o: [
+              "Informed consent",
+              "Oral commitment",
+              "Willingness not necessary",
+              "None of the above",
+            ],
+            a: 0,
+          },
+          {
+            s: 22,
+            q: "The paragraph which explains how the objectives lead to indicators",
+            o: ["Introduction", "Study design", "Budget", "Objectives"],
+            a: 1,
+          },
+          {
+            s: 22,
+            q: "The following annexure in the study protocol deals with toxicity management",
+            o: [
+              "Study management",
+              "Standard operating procedures",
+              "Consent forms",
+              "Adverse event management form",
+            ],
+            a: 3,
+          },
+          {
+            s: 22,
+            q: "Study population, sample size and sampling are included in the following section of the protocol",
+            o: ["Introduction", "Methods", "Objectives", "Expected Benefits"],
+            a: 1,
+          },
+          {
+            s: 22,
+            q: "First step for writing a successful protocol",
+            o: [
+              "Write a one page concept paper",
+              "Identify topic, research question and objectives",
+              "Write a draft protocol",
+              "Seek ethics approval",
+            ],
+            a: 1,
+          },
+          {
+            s: 22,
+            q: "Human participant protection paragraph addresses all except",
+            o: [
+              "Confidentiality",
+              "Risks",
+              "Compensation",
+              "Sample size calculation",
+            ],
+            a: 3,
+          },
+          {
+            s: 22,
+            q: "Description of the intervention is essential in a research protocol for",
+            o: [
+              "Experimental study",
+              "Case-control study",
+              "Cohort study",
+              "Cross-sectional study",
+            ],
+            a: 0,
+          },
+          {
+            s: 22,
+            q: "Key outcomes and exposures should be explained under",
+            o: [
+              "Data analysis",
+              "Data Collection tools",
+              "Sampling",
+              "Operational definitions",
+            ],
+            a: 3,
+          },
+          {
+            s: 23,
+            q: "All of the following statements regarding research publications are correct, Except",
+            o: [
+              "Publishing paper is important for getting promotion in academic institutions",
+              "Publishing research findings help to identify the research gaps",
+              "Negative findings in a research should not be published",
+              "Publishing research findings improves the credibility of a researcher",
+            ],
+            a: 2,
+          },
+          {
+            s: 23,
+            q: "Which of the following is incorrect about authorship?",
+            o: [
+              "Authorship confers credit, implies responsibility and accountability of the published work",
+              "International Committee of Medical Journal Editors recommends criteria on authorship",
+              "It is mandatory to declare the contribution of each author",
+              "It is not mandatory that all authors should approve the final version of the manuscript",
+            ],
+            a: 3,
+          },
+          {
+            s: 23,
+            q: "Which of the following is false about plagiarism?",
+            o: [
+              "It can be copying and pasting of contents from a published manuscript",
+              "It can be copying someone’s idea",
+              "It is not considered as a serious publication misconduct",
+              "‘Urkund’ is one of the software used to check plagiarism",
+            ],
+            a: 2,
+          },
+          {
+            s: 23,
+            q: "Which of the following organizations directly deals with publication ethics?",
+            o: [
+              "Indian Medical Association (IMA)",
+              "Committee on Publication Ethics (COPE)",
+              "World Health Organization (WHO)",
+              "Joint National Committee (JNC)",
+            ],
+            a: 1,
+          },
+          {
+            s: 23,
+            q: "All clinical trials in India should be registered with Clinical Trial Registry of India.",
+            o: ["True", "False"],
+            a: 0,
+          },
+          {
+            s: 23,
+            q: "All the following help in reducing ethical issues associated with research publication, EXCEPT",
+            o: [
+              "Obtaining the institutional ethics committee permission",
+              "Including a guest author to improve the acceptance of the manuscript",
+              "Obtaining permission from the copyright holder to reproduce a figure",
+              "Declaring familial relationship between an author and the CEO of the funding agency",
+            ],
+            a: 1,
+          },
+          {
+            s: 23,
+            q: "Which of the following is NOT an example of publication misconduct?",
+            o: [
+              "Plagiarism",
+              "Ghost authorship",
+              "Data fabrication",
+              "Conflict of interest",
+            ],
+            a: 3,
+          },
+          {
+            s: 23,
+            q: "Which of the following is INCORRECT about publishing research finding?",
+            o: [
+              "Publication often helps in career progression and academic promotion",
+              "It is a way to communicate research findings with the peer groups",
+              "Conflicts of interest can be suppressed as it has implication in study findings",
+              "It identifies research gaps",
+            ],
+            a: 2,
+          },
+          {
+            s: 23,
+            q: "Which of the following is recommended to avoid plagiarism in a research publication?",
+            o: [
+              "Give compensation to the original author",
+              "Cite the reference",
+              "Do not acknowledge an unpublished work",
+              "Rephrase the content without reference",
+            ],
+            a: 1,
+          },
+          {
+            s: 23,
+            q: "State whether true or false. The first author is mostly responsible for addressing the comments received from the reviewers of the journal.",
+            o: ["True", "False"],
+            a: 1,
+          },
+        ];
+        var PINNED =
+          /^(all of the above|none of the above|both\b.*|true|false|yes|no)$/i;
+        var LETTERS = ["A", "B", "C", "D", "E"];
+        function $(id) {
+          return document.getElementById(id);
+        }
+        function shuffle(list) {
+          var a = list.slice();
+          for (var i = a.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var t = a[i];
+            a[i] = a[j];
+            a[j] = t;
+          }
+          return a;
+        }
+        function prepare(item) {
+          var opts = item.o.map(function (text, i) {
+            return { text: text, right: i === item.a };
+          });
+          var pinned = item.o.some(function (t) {
+            return PINNED.test(t.trim());
+          });
+          return {
+            q: item.q,
+            src: item.s,
+            opts: pinned ? opts : shuffle(opts),
+          };
+        }
+        function buildRuler(el, n) {
+          el.innerHTML = "";
+          for (var i = 0; i < n; i++) {
+            var s = document.createElement("span");
+            s.className = "tick";
+            el.appendChild(s);
+          }
+        }
+        function show(name) {
+          ["start", "quiz", "result"].forEach(function (n) {
+            $("screen-" + n).hidden = n !== name;
+          });
+          window.scrollTo(0, 0);
+        }
+        var state = { qs: [], i: 0, results: [], answered: false };
+        function startQuiz() {
+          var n = Math.min(QUIZ_LENGTH, BANK.length);
+          state.qs = shuffle(BANK).slice(0, n).map(prepare);
+          state.i = 0;
+          state.results = [];
+          state.answered = false;
+          buildRuler($("quiz-ruler"), n);
+          $("q-total").textContent = n;
+          show("quiz");
+          renderQuestion();
+        }
+        function renderQuestion() {
+          var q = state.qs[state.i];
+          state.answered = false;
+          $("q-num").textContent = state.i + 1;
+          $("q-text").textContent = q.q;
+          $("feedback").textContent = "";
+          $("feedback").className = "feedback";
+          $("btn-next").hidden = true;
+          var ticks = $("quiz-ruler").children;
+          for (var t = 0; t < ticks.length; t++)
+            ticks[t].className =
+              "tick" +
+              (t < state.i ? " done" : t === state.i ? " current" : "");
+          var box = $("options");
+          box.className = "options";
+          box.innerHTML = "";
+          q.opts.forEach(function (o, idx) {
+            var b = document.createElement("button");
+            b.type = "button";
+            b.className = "opt";
+            var badge = document.createElement("span");
+            badge.className = "badge";
+            badge.textContent = LETTERS[idx];
+            var txt = document.createElement("span");
+            txt.className = "txt";
+            txt.textContent = o.text;
+            var flag = document.createElement("span");
+            flag.className = "flag";
+            b.appendChild(badge);
+            b.appendChild(txt);
+            b.appendChild(flag);
+            b.addEventListener("click", function () {
+              pick(idx);
+            });
+            box.appendChild(b);
+          });
+          $("card").focus({ preventScroll: true });
+        }
+        function pick(idx) {
+          if (state.answered) return;
+          state.answered = true;
+          var q = state.qs[state.i],
+            chosen = q.opts[idx],
+            correctIdx = q.opts.findIndex(function (o) {
+              return o.right;
+            });
+          state.results[state.i] = {
+            q: q.q,
+            src: q.src,
+            ok: chosen.right,
+            yours: chosen.text,
+            answer: q.opts[correctIdx].text,
+          };
+          var box = $("options");
+          box.className = "options locked";
+          var btns = box.children;
+          btns[correctIdx].classList.add("correct");
+          btns[correctIdx].querySelector(".flag").textContent =
+            "Correct answer";
+          if (!chosen.right) {
+            btns[idx].classList.add("wrong");
+            btns[idx].querySelector(".flag").textContent = "Your answer";
+          }
+          var fb = $("feedback");
+          if (chosen.right) {
+            fb.textContent = "Correct.";
+            fb.className = "feedback good";
+          } else {
+            fb.textContent = "Not quite. The correct answer is highlighted.";
+            fb.className = "feedback bad";
+          }
+          var last = state.i === state.qs.length - 1,
+            next = $("btn-next");
+          next.textContent = last ? "See my score" : "Next question";
+          next.hidden = false;
+          next.focus();
+        }
+        function next() {
+          if (state.i < state.qs.length - 1) {
+            state.i++;
+            renderQuestion();
+          } else finish();
+        }
+        function finish() {
+          var total = state.qs.length,
+            score = state.results.filter(function (r) {
+              return r.ok;
+            }).length,
+            pct = Math.round((score / total) * 100);
+          $("r-score").textContent = score;
+          $("r-of").textContent = "out of " + total;
+          $("r-pct").textContent = pct + "%";
+          var msg =
+            pct >= 90
+              ? "Excellent. You know this material well."
+              : pct >= 75
+                ? "Solid. Check the questions you missed below, then try again."
+                : pct >= 50
+                  ? "Getting there. Go through the questions you missed below, then restart for a fresh shuffle."
+                  : "Start with the questions below, then restart for a fresh shuffle.";
+          $("r-msg").textContent = msg;
+          var ruler = $("result-ruler");
+          buildRuler(ruler, total);
+          for (var i = 0; i < total; i++)
+            ruler.children[i].className =
+              "tick " + (state.results[i].ok ? "right" : "wrong");
+          var review = $("review");
+          review.innerHTML = "";
+          var missed = state.results.filter(function (r) {
+            return !r.ok;
+          });
+          if (missed.length === 0) {
+            var p = document.createElement("p");
+            p.className = "perfect";
+            p.textContent = "No missed questions. Full marks.";
+            review.appendChild(p);
+          } else {
+            var h = document.createElement("h3");
+            h.textContent = "Questions to revisit (" + missed.length + ")";
+            review.appendChild(h);
+            missed.forEach(function (r) {
+              var item = document.createElement("div");
+              item.className = "review-item";
+              var rq = document.createElement("p");
+              rq.className = "rq";
+              rq.textContent = r.q;
+              var y = document.createElement("p");
+              y.className = "yours";
+              y.textContent = "Your answer: " + r.yours;
+              var c = document.createElement("p");
+              c.className = "right";
+              c.textContent = "Correct answer: " + r.answer;
+              var s = document.createElement("p");
+              s.className = "src";
+              s.textContent = SOURCES[r.src];
+              item.appendChild(rq);
+              item.appendChild(y);
+              item.appendChild(c);
+              item.appendChild(s);
+              review.appendChild(item);
+            });
+          }
+          show("result");
+        }
+        var total = Math.min(QUIZ_LENGTH, BANK.length);
+        buildRuler($("start-ruler"), total);
+        $("start-count").textContent =
+          total +
+          " questions per attempt, covering all " +
+          BANK.length +
+          " questions from Week 8.";
+        $("btn-start").addEventListener("click", startQuiz);
+        $("btn-restart").addEventListener("click", startQuiz);
+        $("btn-next").addEventListener("click", next);
+        $("btn-quit").addEventListener("click", function () {
+          if (
+            window.confirm(
+              "Restart the quiz? Your progress so far will be lost.",
+            )
+          )
+            startQuiz();
+        });
+        document.addEventListener("keydown", function (e) {
+          if (e.ctrlKey || e.metaKey || e.altKey) return;
+          if ($("screen-quiz").hidden || state.answered) return;
+          var k = e.key.toUpperCase(),
+            idx = LETTERS.indexOf(k);
+          if (idx === -1 && /^[1-5]$/.test(k)) idx = parseInt(k, 10) - 1;
+          if (idx > -1 && idx < state.qs[state.i].opts.length) pick(idx);
+        });
+      })();
+    </script>
+  </body>
+</html>

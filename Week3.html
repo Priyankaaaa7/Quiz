@@ -1,0 +1,1021 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NPTEL Health Research — Week 3 Quiz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,600&family=Public+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --paper: #edf1f3;
+        --grid: #dce4e8;
+        --ink: #15233b;
+        --muted: #55667b;
+        --card: #fbfcfc;
+        --line: #c4cfd8;
+        --accent: #e8a317;
+        --good: #17754f;
+        --good-bg: #e2f3ea;
+        --bad: #a93445;
+        --bad-bg: #fbe8eb;
+        --serif: "Literata", Georgia, "Times New Roman", serif;
+        --sans:
+          "Public Sans", system-ui, -apple-system, "Segoe UI", Roboto,
+          sans-serif;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        -webkit-text-size-adjust: 100%;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: var(--sans);
+        font-size: 16px;
+        line-height: 1.5;
+        color: var(--ink);
+        background-color: var(--paper);
+        background-image:
+          linear-gradient(var(--grid) 1px, transparent 1px),
+          linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+        background-size: 28px 28px;
+      }
+      .wrap {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 32px 20px 64px;
+      }
+      [hidden] {
+        display: none !important;
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: var(--serif);
+        font-weight: 600;
+        margin: 0;
+        letter-spacing: -0.01em;
+      }
+      button {
+        font: inherit;
+        color: inherit;
+        cursor: pointer;
+      }
+      button:focus-visible {
+        outline: 3px solid var(--ink);
+        outline-offset: 3px;
+      }
+      .btn {
+        display: inline-block;
+        padding: 12px 24px;
+        border: 2px solid var(--ink);
+        border-radius: 8px;
+        background: var(--ink);
+        color: #fff;
+        font-weight: 600;
+        transition:
+          background-color 0.15s,
+          color 0.15s;
+      }
+      .btn:hover {
+        background: #24375a;
+      }
+      .link-btn {
+        border: 0;
+        background: none;
+        padding: 4px 0;
+        color: var(--muted);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        font-size: 14px;
+      }
+      .link-btn:hover {
+        color: var(--ink);
+      }
+      .ruler {
+        display: flex;
+        align-items: flex-end;
+        gap: 3px;
+        height: 22px;
+      }
+      .tick {
+        flex: 1;
+        height: 12px;
+        border-radius: 2px;
+        background: var(--card);
+        border: 1px solid var(--line);
+        transition:
+          height 0.2s,
+          background-color 0.2s;
+      }
+      .tick.done {
+        background: var(--ink);
+        border-color: var(--ink);
+      }
+      .tick.current {
+        height: 22px;
+        background: var(--accent);
+        border-color: var(--accent);
+      }
+      .tick.right {
+        background: var(--good);
+        border-color: var(--good);
+        height: 18px;
+      }
+      .tick.wrong {
+        background: var(--bad);
+        border-color: var(--bad);
+        height: 10px;
+      }
+      .intro h1 {
+        font-size: clamp(2rem, 6vw, 2.9rem);
+        line-height: 1.12;
+        margin-bottom: 16px;
+      }
+      .intro p {
+        max-width: 56ch;
+        color: var(--muted);
+        margin: 0 0 12px;
+      }
+      .intro .ruler {
+        margin: 28px 0 32px;
+      }
+      .intro ul {
+        margin: 0 0 32px;
+        padding-left: 20px;
+        max-width: 56ch;
+      }
+      .intro li {
+        margin-bottom: 6px;
+      }
+      .quiz-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 10px;
+        font-size: 14px;
+        color: var(--muted);
+      }
+      .quiz-head strong {
+        color: var(--ink);
+        font-weight: 600;
+      }
+      .card {
+        margin-top: 24px;
+        padding: 28px;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        box-shadow: 0 1px 0 rgba(21, 35, 59, 0.06);
+      }
+      .card:focus {
+        outline: none;
+      }
+      .question {
+        font-size: clamp(1.15rem, 3.2vw, 1.4rem);
+        line-height: 1.4;
+        font-weight: 500;
+        margin-bottom: 22px;
+      }
+      .options {
+        display: grid;
+        gap: 10px;
+      }
+      .opt {
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        width: 100%;
+        padding: 14px 16px;
+        text-align: left;
+        background: #fff;
+        border: 1.5px solid var(--line);
+        border-radius: 10px;
+        transition:
+          border-color 0.15s,
+          background-color 0.15s;
+      }
+      .opt:hover {
+        border-color: var(--ink);
+      }
+      .badge {
+        flex: none;
+        width: 28px;
+        height: 28px;
+        display: grid;
+        place-items: center;
+        border-radius: 6px;
+        border: 1.5px solid var(--line);
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--muted);
+        background: var(--paper);
+      }
+      .opt .txt {
+        flex: 1;
+        padding-top: 2px;
+      }
+      .opt .flag {
+        flex: none;
+        padding-top: 3px;
+        font-size: 13px;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+      .options.locked .opt {
+        cursor: default;
+      }
+      .options.locked .opt:hover {
+        border-color: var(--line);
+      }
+      .opt.correct {
+        border-color: var(--good);
+        background: var(--good-bg);
+      }
+      .opt.correct .badge {
+        background: var(--good);
+        border-color: var(--good);
+        color: #fff;
+      }
+      .opt.correct .flag {
+        color: var(--good);
+      }
+      .opt.wrong {
+        border-color: var(--bad);
+        background: var(--bad-bg);
+      }
+      .opt.wrong .badge {
+        background: var(--bad);
+        border-color: var(--bad);
+        color: #fff;
+      }
+      .opt.wrong .flag {
+        color: var(--bad);
+      }
+      .feedback-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        margin-top: 22px;
+        min-height: 48px;
+      }
+      .feedback {
+        margin: 0;
+        font-weight: 600;
+      }
+      .feedback.good {
+        color: var(--good);
+      }
+      .feedback.bad {
+        color: var(--bad);
+      }
+      .result h2 {
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: var(--muted);
+      }
+      .score {
+        display: flex;
+        align-items: baseline;
+        gap: 12px;
+        margin: 4px 0 8px;
+        font-family: var(--serif);
+      }
+      .score .big {
+        font-size: clamp(4rem, 16vw, 6rem);
+        font-weight: 600;
+        line-height: 1;
+      }
+      .score .of {
+        font-size: clamp(1.3rem, 5vw, 1.8rem);
+        color: var(--muted);
+      }
+      .result .pct {
+        margin: 0 0 6px;
+        font-weight: 600;
+        font-size: 1.1rem;
+      }
+      .result .msg {
+        margin: 0 0 24px;
+        color: var(--muted);
+        max-width: 52ch;
+      }
+      .result .ruler {
+        margin-bottom: 8px;
+      }
+      .legend {
+        font-size: 13px;
+        color: var(--muted);
+        margin: 0 0 28px;
+      }
+      .legend .sw {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 2px;
+        margin: 0 4px 0 0;
+        vertical-align: baseline;
+      }
+      .legend .sw.right {
+        background: var(--good);
+      }
+      .legend .sw.wrong {
+        background: var(--bad);
+        margin-left: 14px;
+      }
+      .review {
+        margin-top: 44px;
+      }
+      .review h3 {
+        font-size: 1.3rem;
+        margin-bottom: 16px;
+      }
+      .review-item {
+        padding: 18px 20px;
+        margin-bottom: 12px;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-left: 5px solid var(--bad);
+        border-radius: 8px;
+      }
+      .review-item .rq {
+        font-family: var(--serif);
+        font-weight: 500;
+        margin: 0 0 10px;
+      }
+      .review-item p {
+        margin: 0 0 4px;
+        font-size: 15px;
+      }
+      .review-item .yours {
+        color: var(--bad);
+      }
+      .review-item .right {
+        color: var(--good);
+        font-weight: 600;
+      }
+      .review-item .src {
+        margin-top: 8px;
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .perfect {
+        padding: 18px 20px;
+        background: var(--good-bg);
+        border: 1px solid var(--good);
+        border-radius: 8px;
+        font-weight: 600;
+        color: var(--good);
+      }
+      @media (max-width: 520px) {
+        .wrap {
+          padding: 20px 14px 48px;
+        }
+        .card {
+          padding: 20px 16px;
+        }
+        .opt {
+          padding: 12px;
+          gap: 10px;
+        }
+        .opt .flag {
+          display: none;
+        }
+        .feedback-row {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .feedback-row .btn {
+          width: 100%;
+          text-align: center;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <section id="screen-start" class="intro">
+        <h1>Health research methods — Week 3</h1>
+        <p>
+          Practice questions from Week 3 NPTEL health research methods:
+          experimental study designs, validity of epidemiological studies, and
+          qualitative research methods.
+        </p>
+        <div class="ruler" id="start-ruler" aria-hidden="true"></div>
+        <ul>
+          <li id="start-count"></li>
+          <li>Questions and answer choices are shuffled when appropriate.</li>
+          <li>
+            You see whether each answer is right as you go. Your score appears
+            at the end.
+          </li>
+        </ul>
+        <button class="btn" id="btn-start" type="button">Start quiz</button>
+      </section>
+      <section id="screen-quiz" hidden>
+        <div class="quiz-head">
+          <span
+            >Question <strong id="q-num">1</strong> of
+            <span id="q-total">30</span></span
+          >
+          <button class="link-btn" id="btn-quit" type="button">Restart</button>
+        </div>
+        <div
+          class="ruler"
+          id="quiz-ruler"
+          role="img"
+          aria-label="Progress"
+        ></div>
+        <div class="card" id="card" tabindex="-1">
+          <h2 class="question" id="q-text"></h2>
+          <div class="options" id="options"></div>
+          <div class="feedback-row">
+            <p class="feedback" id="feedback" aria-live="polite"></p>
+            <button class="btn" id="btn-next" type="button" hidden>
+              Next question
+            </button>
+          </div>
+        </div>
+      </section>
+      <section id="screen-result" class="result" hidden>
+        <h2>Your score</h2>
+        <div class="score">
+          <span class="big" id="r-score">0</span
+          ><span class="of" id="r-of">out of 30</span>
+        </div>
+        <p class="pct" id="r-pct"></p>
+        <p class="msg" id="r-msg"></p>
+        <div
+          class="ruler"
+          id="result-ruler"
+          role="img"
+          aria-label="Results by question"
+        ></div>
+        <p class="legend">
+          <span class="sw right"></span>Correct<span class="sw wrong"></span
+          >Incorrect
+        </p>
+        <button class="btn" id="btn-restart" type="button">Restart quiz</button>
+        <div class="review" id="review"></div>
+      </section>
+    </main>
+    <script>
+      (function () {
+        "use strict";
+        var QUIZ_LENGTH = 30;
+        var SOURCES = {
+          7: "Assignment 7: Experimental study designs",
+          8: "Assignment 8: Validity of epidemiological studies",
+          9: "Assignment 9: Qualitative research methods",
+        };
+        var BANK = [
+          {
+            s: 7,
+            q: "Which of the following is one of the cornerstones of a RCT?",
+            o: ["Recruitment", "Randomization", "Blinding", "Sampling"],
+            a: 1,
+          },
+          {
+            s: 7,
+            q: "A pharmacologically inactive agent that investigators administer to participants in the control group of a trial",
+            o: ["Comparator drug", "Placebo", "Conjugate", "None of the above"],
+            a: 1,
+          },
+          {
+            s: 7,
+            q: "Which of the following is/are true in a clinical trial?",
+            o: [
+              "Sample size determination",
+              "Approval from regulatory authority",
+              "Agreement between the investigators and sponsors",
+              "All of the above",
+            ],
+            a: 3,
+          },
+          {
+            s: 7,
+            q: "Key methodological components of a Randomized Controlled Trials are",
+            o: [
+              "Use of a control to which the experimental intervention is compared",
+              "Random assignment of participants to intervention",
+              "Taking informed consent from all study participants",
+              "All of the above",
+            ],
+            a: 3,
+          },
+          {
+            s: 7,
+            q: "Single blinding is practiced at the level of",
+            o: ["Investigator", "Participants", "Analysts", "None"],
+            a: 1,
+          },
+          {
+            s: 7,
+            q: "What is the purpose of randomization in a clinical trial?",
+            o: [
+              "To get better power for data analysis",
+              "For generalizing the study findings to the non studied population",
+              "To receive balance in baseline characteristics",
+              "To guarantee that the statistical tests have valid significance levels",
+            ],
+            a: 2,
+          },
+          {
+            s: 7,
+            q: "The purpose of double-blinding in a clinical trial is to",
+            o: [
+              "Achieve comparability of all arms of a clinical trial",
+              "Avoid observer and subject bias",
+              "Avoid observer bias and sampling variation",
+              "Avoid subject bias and sampling variation",
+            ],
+            a: 1,
+          },
+          {
+            s: 7,
+            q: "Efficacy of a new drug can be tested in which of the following phases of a clinical trial?",
+            o: ["Phase 1", "Phase 2", "Phase 3", "Phase 4"],
+            a: 2,
+          },
+          {
+            s: 7,
+            q: "Which of the following interventions can be tested in a clinical trial?",
+            o: [
+              "New vaccines",
+              "New drugs",
+              "Different doses of products",
+              "New diagnostic kit",
+              "All of the above",
+            ],
+            a: 4,
+          },
+          {
+            s: 7,
+            q: "Which phase of a clinical trial is referred to as post-marketing surveillance?",
+            o: ["Phase 1", "Phase 2", "Phase 3", "Phase 4"],
+            a: 3,
+          },
+          {
+            s: 8,
+            q: "To reduce selection bias in case-control studies, all the following are true EXCEPT",
+            o: [
+              "Use population based design",
+              "Apply different eligibility criteria for selecting cases and controls",
+              "Both cases and controls undergo the same diagnostic procedures",
+              "Avoid hospital based design",
+            ],
+            a: 1,
+          },
+          {
+            s: 8,
+            q: "The method which can be used to alleviate confounding during data analysis in an epidemiological study",
+            o: [
+              "Multivariate analysis",
+              "Restriction",
+              "Matching",
+              "Randomization",
+            ],
+            a: 0,
+          },
+          {
+            s: 8,
+            q: "Obtaining an accurate estimate of disease frequency and effect of exposure on health outcomes in study population pertains to",
+            o: [
+              "External validity",
+              "Internal validity",
+              "Bias",
+              "Confounding",
+            ],
+            a: 1,
+          },
+          {
+            s: 8,
+            q: "Randomized clinical trials can be best described as",
+            o: [
+              "Experimental studies",
+              "Analytic studies",
+              "Descriptive studies",
+              "All of the above",
+            ],
+            a: 0,
+          },
+          {
+            s: 8,
+            q: "Better recall of exposure among the cases in a case-control study can result in",
+            o: [
+              "Information bias",
+              "Confounding",
+              "Investigator bias",
+              "Selection bias",
+            ],
+            a: 0,
+          },
+          {
+            s: 8,
+            q: "Obtaining an estimate that is generalizable to relevant study population in a research study is",
+            o: [
+              "External validity",
+              "Internal validity",
+              "Bias",
+              "Confounding",
+            ],
+            a: 0,
+          },
+          {
+            s: 8,
+            q: "Systematic selection of more number of exposed participants with the higher risk of outcome in a cohort study will result in",
+            o: [
+              "Selection bias",
+              "Information bias",
+              "Confounding",
+              "Random error",
+            ],
+            a: 0,
+          },
+          {
+            s: 8,
+            q: "All are true regarding measures to reduce information bias, EXCEPT",
+            o: [
+              "Precise operational definitions of all variables",
+              "Detailed measurement protocols",
+              "Adequate sample size",
+              "Training, Certification and re-certification of data collectors",
+            ],
+            a: 2,
+          },
+          {
+            s: 8,
+            q: "All are true regarding confounding in an epidemiological study, EXCEPT",
+            o: [
+              "May simulate an association that does not exist",
+              "May increase or decrease the strength of association",
+              "May not reveal an association that does exist",
+              "Always change the direction of effect",
+            ],
+            a: 3,
+          },
+          {
+            s: 8,
+            q: "The main reasons for random assignment in a clinical trial is/are",
+            o: [
+              "To maintain equal number of participants in each arm",
+              "To minimize confounding",
+              "To minimize co-interventions and bias in outcome ascertainment",
+              "‘b’ & ‘c’ are true",
+              "‘a’ & ‘b’ are true",
+            ],
+            a: 3,
+          },
+          {
+            s: 9,
+            q: "Which methods in qualitative research use flexible interview guide?",
+            o: [
+              "In-depth Interviews and participant observation",
+              "Focus Group Discussions and In-depth Interviews",
+              "Participant Observation an focus group discussions",
+              "Structured interviews and surveys",
+            ],
+            a: 1,
+          },
+          {
+            s: 9,
+            q: "All the statements regarding Participant Observation is true EXCEPT",
+            o: [
+              "Observer becomes a part of the event/group",
+              "Systematic collection of data is easy",
+              "Analytic methods for observation are not well described",
+              "Data is very detailed",
+            ],
+            a: 1,
+          },
+          {
+            s: 9,
+            q: "Open-ended group interviews that promotes discussions among participants",
+            o: [
+              "In-depth Interviews",
+              "Focus Group Discussions",
+              "Participant Observation",
+              "Structured Interviews",
+            ],
+            a: 1,
+          },
+          {
+            s: 9,
+            q: "Which of the following study designs can be used as a tool to generate ideas/hypotheses?",
+            o: [
+              "Qualitative study",
+              "Case control study",
+              "Experimental study",
+              "Cohort study",
+            ],
+            a: 0,
+          },
+          {
+            s: 9,
+            q: "Open-ended one-to-one interviews to discover interviewee’s own framework of meanings",
+            o: [
+              "In-depth Interviews",
+              "Focus Group Discussions",
+              "Participant Observation",
+              "Structured Interviews",
+            ],
+            a: 0,
+          },
+          {
+            s: 9,
+            q: "The qualitative data analysis method which uses theoretical framework as the basis for analysis",
+            o: [
+              "Content analysis",
+              "Grounded theory",
+              "Schema Analysis",
+              "Hermeneutics",
+            ],
+            a: 0,
+          },
+          {
+            s: 9,
+            q: "The observer becomes a part of the group or event in this method of qualitative study",
+            o: [
+              "In-depth Interviews",
+              "Focus Group Discussions",
+              "Participant Observation",
+              "Structured Interviews",
+            ],
+            a: 2,
+          },
+          {
+            s: 9,
+            q: "All of the following are situations in which qualitative research methods can be used, EXCEPT",
+            o: [
+              "Familiar and sufficiently researched matter",
+              "To seek the depth of understanding",
+              "Exploration of behaviors",
+              "View the social phenomenon holistically",
+            ],
+            a: 0,
+          },
+          {
+            s: 9,
+            q: "The qualitative data analysis method in which investigators codes text into categories and build theoretical models",
+            o: [
+              "Content analysis",
+              "Grounded theory",
+              "Schema Analysis",
+              "Hermeneutics",
+            ],
+            a: 1,
+          },
+          {
+            s: 9,
+            q: "One of the reasons that the results of In-depth Interviews are not generalizable is because of",
+            o: [
+              "Random sampling",
+              "Cluster sampling",
+              "Purposive sampling",
+              "Stratified random sampling",
+            ],
+            a: 2,
+          },
+        ];
+        var PINNED =
+          /^(all of the above|none of the above|both\b.*|true|false|yes|no)$/i;
+        var LETTERS = ["A", "B", "C", "D", "E"];
+        function $(id) {
+          return document.getElementById(id);
+        }
+        function shuffle(list) {
+          var a = list.slice();
+          for (var i = a.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var t = a[i];
+            a[i] = a[j];
+            a[j] = t;
+          }
+          return a;
+        }
+        function prepare(item) {
+          var opts = item.o.map(function (text, i) {
+            return { text: text, right: i === item.a };
+          });
+          var pinned = item.o.some(function (t) {
+            return PINNED.test(t.trim());
+          });
+          return {
+            q: item.q,
+            src: item.s,
+            opts: pinned ? opts : shuffle(opts),
+          };
+        }
+        function buildRuler(el, n) {
+          el.innerHTML = "";
+          for (var i = 0; i < n; i++) {
+            var s = document.createElement("span");
+            s.className = "tick";
+            el.appendChild(s);
+          }
+        }
+        function show(name) {
+          ["start", "quiz", "result"].forEach(function (n) {
+            $("screen-" + n).hidden = n !== name;
+          });
+          window.scrollTo(0, 0);
+        }
+        var state = { qs: [], i: 0, results: [], answered: false };
+        function startQuiz() {
+          var n = Math.min(QUIZ_LENGTH, BANK.length);
+          state.qs = shuffle(BANK).slice(0, n).map(prepare);
+          state.i = 0;
+          state.results = [];
+          state.answered = false;
+          buildRuler($("quiz-ruler"), n);
+          $("q-total").textContent = n;
+          show("quiz");
+          renderQuestion();
+        }
+        function renderQuestion() {
+          var q = state.qs[state.i];
+          state.answered = false;
+          $("q-num").textContent = state.i + 1;
+          $("q-text").textContent = q.q;
+          $("feedback").textContent = "";
+          $("feedback").className = "feedback";
+          $("btn-next").hidden = true;
+          var ticks = $("quiz-ruler").children;
+          for (var t = 0; t < ticks.length; t++)
+            ticks[t].className =
+              "tick" +
+              (t < state.i ? " done" : t === state.i ? " current" : "");
+          var box = $("options");
+          box.className = "options";
+          box.innerHTML = "";
+          q.opts.forEach(function (o, idx) {
+            var b = document.createElement("button");
+            b.type = "button";
+            b.className = "opt";
+            var badge = document.createElement("span");
+            badge.className = "badge";
+            badge.textContent = LETTERS[idx];
+            var txt = document.createElement("span");
+            txt.className = "txt";
+            txt.textContent = o.text;
+            var flag = document.createElement("span");
+            flag.className = "flag";
+            b.appendChild(badge);
+            b.appendChild(txt);
+            b.appendChild(flag);
+            b.addEventListener("click", function () {
+              pick(idx);
+            });
+            box.appendChild(b);
+          });
+          $("card").focus({ preventScroll: true });
+        }
+        function pick(idx) {
+          if (state.answered) return;
+          state.answered = true;
+          var q = state.qs[state.i],
+            chosen = q.opts[idx],
+            correctIdx = q.opts.findIndex(function (o) {
+              return o.right;
+            });
+          state.results[state.i] = {
+            q: q.q,
+            src: q.src,
+            ok: chosen.right,
+            yours: chosen.text,
+            answer: q.opts[correctIdx].text,
+          };
+          var box = $("options");
+          box.className = "options locked";
+          var btns = box.children;
+          btns[correctIdx].classList.add("correct");
+          btns[correctIdx].querySelector(".flag").textContent =
+            "Correct answer";
+          if (!chosen.right) {
+            btns[idx].classList.add("wrong");
+            btns[idx].querySelector(".flag").textContent = "Your answer";
+          }
+          var fb = $("feedback");
+          if (chosen.right) {
+            fb.textContent = "Correct.";
+            fb.className = "feedback good";
+          } else {
+            fb.textContent = "Not quite. The correct answer is highlighted.";
+            fb.className = "feedback bad";
+          }
+          var last = state.i === state.qs.length - 1,
+            next = $("btn-next");
+          next.textContent = last ? "See my score" : "Next question";
+          next.hidden = false;
+          next.focus();
+        }
+        function next() {
+          if (state.i < state.qs.length - 1) {
+            state.i++;
+            renderQuestion();
+          } else finish();
+        }
+        function finish() {
+          var total = state.qs.length,
+            score = state.results.filter(function (r) {
+              return r.ok;
+            }).length,
+            pct = Math.round((score / total) * 100);
+          $("r-score").textContent = score;
+          $("r-of").textContent = "out of " + total;
+          $("r-pct").textContent = pct + "%";
+          var msg =
+            pct >= 90
+              ? "Excellent. You know this material well."
+              : pct >= 75
+                ? "Solid. Check the questions you missed below, then try again."
+                : pct >= 50
+                  ? "Getting there. Go through the questions you missed below, then restart for a fresh shuffle."
+                  : "Start with the questions below, then restart for a fresh shuffle.";
+          $("r-msg").textContent = msg;
+          var ruler = $("result-ruler");
+          buildRuler(ruler, total);
+          for (var i = 0; i < total; i++)
+            ruler.children[i].className =
+              "tick " + (state.results[i].ok ? "right" : "wrong");
+          var review = $("review");
+          review.innerHTML = "";
+          var missed = state.results.filter(function (r) {
+            return !r.ok;
+          });
+          if (missed.length === 0) {
+            var p = document.createElement("p");
+            p.className = "perfect";
+            p.textContent = "No missed questions. Full marks.";
+            review.appendChild(p);
+          } else {
+            var h = document.createElement("h3");
+            h.textContent = "Questions to revisit (" + missed.length + ")";
+            review.appendChild(h);
+            missed.forEach(function (r) {
+              var item = document.createElement("div");
+              item.className = "review-item";
+              var rq = document.createElement("p");
+              rq.className = "rq";
+              rq.textContent = r.q;
+              var y = document.createElement("p");
+              y.className = "yours";
+              y.textContent = "Your answer: " + r.yours;
+              var c = document.createElement("p");
+              c.className = "right";
+              c.textContent = "Correct answer: " + r.answer;
+              var s = document.createElement("p");
+              s.className = "src";
+              s.textContent = SOURCES[r.src];
+              item.appendChild(rq);
+              item.appendChild(y);
+              item.appendChild(c);
+              item.appendChild(s);
+              review.appendChild(item);
+            });
+          }
+          show("result");
+        }
+        var total = Math.min(QUIZ_LENGTH, BANK.length);
+        buildRuler($("start-ruler"), total);
+        $("start-count").textContent =
+          total +
+          " questions per attempt, covering all " +
+          BANK.length +
+          " questions from Week 3.";
+        $("btn-start").addEventListener("click", startQuiz);
+        $("btn-restart").addEventListener("click", startQuiz);
+        $("btn-next").addEventListener("click", next);
+        $("btn-quit").addEventListener("click", function () {
+          if (
+            window.confirm(
+              "Restart the quiz? Your progress so far will be lost.",
+            )
+          )
+            startQuiz();
+        });
+        document.addEventListener("keydown", function (e) {
+          if (e.ctrlKey || e.metaKey || e.altKey) return;
+          if ($("screen-quiz").hidden || state.answered) return;
+          var k = e.key.toUpperCase(),
+            idx = LETTERS.indexOf(k);
+          if (idx === -1 && /^[1-5]$/.test(k)) idx = parseInt(k, 10) - 1;
+          if (idx > -1 && idx < state.qs[state.i].opts.length) pick(idx);
+        });
+      })();
+    </script>
+  </body>
+</html>
